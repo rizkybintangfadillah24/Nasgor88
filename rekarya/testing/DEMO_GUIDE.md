@@ -23,7 +23,7 @@ Password: mahasiswa123
 Email: umkm@rekarya.com  
 Password: umkm123  
 
-Catatan: Akun dapat disesuaikan dengan seed database backend.
+Catatan: Akun dapat disesuaikan dengan seed database backend dan hasil testing auth.
 
 ## Data Produk Demo
 
@@ -50,16 +50,16 @@ Metode pendampingan: Online
 
 | No | Aktor | Aksi | Hasil yang Diharapkan | Status |
 |---|---|---|---|---|
-| 1 | Admin | Login | Admin masuk dashboard | Belum |
-| 2 | Mahasiswa | Register | Akun Mahasiswa berhasil dibuat | Belum |
-| 3 | Mahasiswa | Login | Masuk dashboard Mahasiswa | Belum |
+| 1 | Admin | Login | Admin masuk dashboard | Belum frontend |
+| 2 | Mahasiswa | Register | Akun Mahasiswa berhasil dibuat | Selesai di API |
+| 3 | Mahasiswa | Login | Login Mahasiswa berhasil | Selesai di API |
 | 4 | Mahasiswa | Isi profil | Profil tersimpan | Belum |
 | 5 | Mahasiswa | Upload produk tugas akhir | Produk status PENDING | Belum |
-| 6 | Admin | Buka verifikasi produk | Produk pending tampil | Belum |
+| 6 | Admin | Buka verifikasi produk | Produk pending tampil | Belum dites penuh |
 | 7 | Admin | Approve produk | Produk status APPROVED | Belum |
 | 8 | Public/Login | Buka katalog | Produk approved tampil | Belum |
-| 9 | UMKM | Register | Akun UMKM berhasil dibuat | Belum |
-| 10 | UMKM | Login | Masuk dashboard UMKM | Belum |
+| 9 | UMKM | Register | Akun UMKM berhasil dibuat | Selesai di API |
+| 10 | UMKM | Login | Login UMKM berhasil | Selesai di API |
 | 11 | UMKM | Isi profil usaha | Profil usaha tersimpan | Belum |
 | 12 | UMKM | Buka Cari Solusi | Form cari solusi tampil | Belum |
 | 13 | UMKM | Isi kebutuhan usaha | Rekomendasi tampil | Belum |
@@ -105,16 +105,18 @@ Tanggal pengecekan: 14 Mei 2026
 
 | Area | Status | Catatan |
 |---|---|---|
-| Backend | Bisa running default awal | Server backend bisa dijalankan, tetapi fitur belum lengkap |
+| Backend | Bisa running | Server backend bisa dijalankan |
 | Frontend | Bisa running default awal | Frontend Next.js bisa dijalankan, tetapi masih default awal |
 | Database | Siap untuk tahap awal | Prisma validate, generate, dan migration berhasil |
 | Seed admin | Siap | Seed admin berhasil dan user admin ada di database |
-| Auth | Belum siap demo | Login/register belum bisa dites karena endpoint auth belum dicek |
-| Katalog | Belum siap demo | Halaman dan endpoint belum terlihat |
+| Auth API | Siap | Register, login, JWT, auth me, change password, dan role middleware berhasil |
+| Auth Frontend | Belum siap demo | Halaman login/register frontend belum dites |
+| Katalog | Belum siap demo | Halaman dan endpoint katalog belum dites penuh |
 | ReKarya Match | Belum siap demo | Endpoint dan halaman belum terlihat |
-| Dashboard role | Belum siap demo | Mahasiswa, UMKM, Admin belum terlihat |
+| Dashboard role | Belum siap demo | Dashboard Mahasiswa, UMKM, Admin belum dites dari frontend |
+| Admin dashboard endpoint | Belum tersedia | GET /api/admin/dashboard masih 404, perlu dikerjakan pada checkpoint admin |
 
-Kesimpulan: backend, frontend, database, dan seed admin sudah siap untuk tahap awal. Namun demo final belum bisa dijalankan penuh sampai auth, produk, admin verification, ReKarya Match, dan dashboard role selesai.
+Kesimpulan: backend, database, seed admin, dan auth API sudah siap untuk tahap awal. Namun demo final belum bisa dijalankan penuh sampai frontend auth, produk, admin verification, ReKarya Match, dan dashboard role selesai.
 
 ## Catatan Demo
 
@@ -136,8 +138,10 @@ Jika waktu presentasi terbatas, prioritaskan alur berikut:
 | Risiko | Solusi |
 |---|---|
 | Backend gagal jalan | Siapkan screenshot hasil testing |
-| Database kosong | Jalankan seed sebelum demo |
+| Database kosong | Jalankan migration dan seed sebelum demo |
+| Auth gagal | Gunakan akun yang sudah dites di Postman |
 | Upload file error | Siapkan file kecil JPG/PNG |
-| Login gagal | Siapkan akun demo yang sudah dites |
+| Login frontend belum siap | Tunjukkan bukti API login dari Postman sementara |
 | ReKarya Match tidak muncul | Pastikan produk sudah APPROVED |
+| Endpoint admin dashboard belum ada | Gunakan endpoint admin lain yang sudah tersedia untuk validasi role sementara |
 | Tampilan mobile rusak | Demo utama di desktop |

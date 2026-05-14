@@ -60,10 +60,19 @@ Testing berfokus pada:
 | Prisma generate | Selesai |
 | Migration database | Selesai |
 | Seed admin | Selesai |
-| Auth | Belum dites |
-| Mahasiswa | Belum dites |
-| UMKM | Belum dites |
-| Admin | Belum dites |
+| Auth API | Selesai |
+| Register Mahasiswa | Selesai |
+| Register UMKM | Selesai |
+| Login Mahasiswa | Selesai |
+| Login UMKM | Selesai |
+| Login Admin | Selesai |
+| JWT token | Selesai |
+| Auth me | Selesai |
+| Change password | Selesai |
+| Middleware role | Selesai |
+| Mahasiswa | Belum dites penuh |
+| UMKM | Belum dites penuh |
+| Admin | Belum dites penuh |
 | ReKarya Match | Belum dites |
 | Upload File | Belum dites |
 | Responsivitas | Belum dites |
@@ -93,13 +102,19 @@ Branch: main
 | Prisma migration | Berhasil | Checkpoint 4 pass |
 | Seed admin | Berhasil | Checkpoint 4 pass |
 | Admin di database | Ada | Checkpoint 4 pass |
-| src/config | Belum terlihat | Perlu dicek pada checkpoint berikutnya |
-| src/controllers | Belum terlihat | Perlu dicek pada checkpoint berikutnya |
-| src/middleware | Belum terlihat | Perlu dicek pada checkpoint berikutnya |
-| src/routes | Belum terlihat | Perlu dicek pada checkpoint berikutnya |
-| src/services | Belum terlihat | Perlu dicek pada checkpoint berikutnya |
-| src/utils | Belum terlihat | Perlu dicek pada checkpoint berikutnya |
-| src/uploads | Belum terlihat | Perlu dicek pada checkpoint upload file |
+| Auth routes | Ada | Checkpoint 5 pass |
+| Auth controller | Ada | Checkpoint 5 pass |
+| Auth middleware | Ada | Checkpoint 5 pass |
+| Role middleware | Ada | Checkpoint 5 pass |
+| Admin route untuk role test | Ada melalui /admin/products/pending | Checkpoint 5 pass |
+| Mahasiswa route untuk role test | Ada melalui /mahasiswa/profile | Checkpoint 5 pass |
+| UMKM route untuk role test | Ada melalui /umkm/profile | Checkpoint 5 pass |
+| src/config | Ada | Mulai sesuai struktur backend |
+| src/controllers | Ada | Mulai sesuai struktur backend |
+| src/middleware | Ada | Mulai sesuai struktur backend |
+| src/routes | Ada | Mulai sesuai struktur backend |
+| src/utils | Ada | Mulai sesuai struktur backend |
+| src/uploads | Perlu dicek pada checkpoint upload file | Belum dites penuh |
 
 ### Frontend
 
@@ -138,11 +153,42 @@ Target checkpoint: Schema Prisma, migration, dan seed admin
 | Admin di database | Ada | Selesai |
 | Password admin | Tersimpan sebagai hash | Selesai |
 
+## Catatan Checkpoint 5 - Authentication API
+
+Tanggal pengecekan: 14 Mei 2026  
+Area: Backend  
+Checkpoint: 5  
+Target checkpoint: Register, login, JWT, auth middleware, role middleware, auth me, dan change password  
+
+| Item Testing | Hasil | Status |
+|---|---|---|
+| Backend running | Berhasil | Selesai |
+| Register Mahasiswa | Berhasil | Selesai |
+| Register UMKM | Berhasil | Selesai |
+| Register Admin dari public | Ditolak | Selesai |
+| Register email duplikat | Ditolak | Selesai |
+| Login Mahasiswa | Berhasil dan token muncul | Selesai |
+| Login UMKM | Berhasil dan token muncul | Selesai |
+| Login Admin | Berhasil dan token muncul | Selesai |
+| Login password salah | Ditolak | Selesai |
+| Auth me tanpa token | Ditolak | Selesai |
+| Auth me token valid | Berhasil | Selesai |
+| Auth me token invalid | Ditolak | Selesai |
+| Change password | Berhasil | Selesai |
+| Login password lama setelah change password | Ditolak | Selesai |
+| Login password baru setelah change password | Berhasil | Selesai |
+| Middleware role Admin | Berhasil dites melalui /admin/products/pending | Selesai |
+| Middleware role Mahasiswa | Berhasil dites melalui /mahasiswa/profile atau /products/my | Selesai |
+| Middleware role UMKM | Berhasil dites melalui /umkm/profile | Selesai |
+| Endpoint /admin/dashboard | Belum tersedia | Dicatat sebagai finding, bukan blocker checkpoint 5 |
+
 ## Kesimpulan Pengecekan Awal
 
 Backend dan frontend sudah bisa running sebagai project default awal.
 
-Checkpoint 4 backend juga sudah lolos testing karena Prisma validate, Prisma generate, migration, seed admin, dan pengecekan admin di database berhasil.
+Checkpoint 4 backend sudah lolos testing karena Prisma validate, Prisma generate, migration, seed admin, dan pengecekan admin di database berhasil.
+
+Checkpoint 5 backend juga sudah lolos testing karena register, login, JWT, auth me, change password, dan middleware role berjalan sesuai hasil pengujian.
 
 Status saat ini:
 
@@ -152,8 +198,9 @@ Status saat ini:
 | Checkpoint 2 Backend | Selesai untuk setup awal | Backend bisa running |
 | Checkpoint 3 Frontend | Selesai untuk setup awal | Frontend bisa running |
 | Checkpoint 4 Database | PASS | Schema Prisma, migration, dan seed admin berhasil |
-| Checkpoint 5 Auth API | Belum dites | Menunggu endpoint auth dari backend |
+| Checkpoint 5 Auth API | PASS | Register, login, JWT, auth me, change password, dan middleware role berhasil |
 | Checkpoint 6 Landing dan Auth Pages | Belum dites | Menunggu landing, login, dan register dari frontend |
+| Checkpoint 7 Profile dan Upload File API | Belum dites penuh | Route profile mulai tersedia, upload file perlu dites khusus |
 
 ## Catatan
 
