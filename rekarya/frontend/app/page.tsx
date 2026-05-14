@@ -1,65 +1,195 @@
-import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
+const problems = [
+  "Pemasaran Digital Lemah",
+  "Penjualan Belum Online",
+  "Pencatatan Keuangan Manual",
+  "Stok Tidak Tertata",
+  "Operasional Tidak Efisien",
+  "Analisis Berbasis Data",
+];
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <main className="min-h-screen bg-white text-gray-900">
+      {/* Navbar */}
+      <header className="sticky top-0 z-50 border-b bg-white/95 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+          <h1 className="text-2xl font-bold text-blue-600">ReKarya</h1>
+
+          <nav className="hidden gap-6 md:flex">
+            <a href="#home" className="hover:text-blue-600">
+              Home
+            </a>
+            <a href="#produk" className="hover:text-blue-600">
+              Produk
+            </a>
+            <a href="#tren" className="hover:text-blue-600">
+              Trend UMKM
+            </a>
+            <a href="#alur" className="hover:text-blue-600">
+              Alur
+            </a>
+            <a href="#manfaat" className="hover:text-blue-600">
+              Manfaat
+            </a>
+          </nav>
+
+          <div className="flex gap-3">
+            <Link
+              href="/register"
+              className="rounded-lg border px-4 py-2 font-medium hover:bg-gray-50"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              Register
+            </Link>
+            <Link
+              href="/login"
+              className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
             >
-              Learning
-            </a>{" "}
-            center.
+              Login
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section
+        id="home"
+        className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white"
+      >
+        <div className="mx-auto max-w-7xl px-6 py-24 text-center">
+          <h2 className="mb-6 text-5xl font-bold">ReKarya</h2>
+
+          <p className="mb-4 text-2xl font-semibold">
+            Menghubungkan Produk Tugas Akhir Mahasiswa dengan Kebutuhan Digital
+            UMKM
+          </p>
+
+          <p className="mx-auto mb-8 max-w-3xl text-lg text-blue-100">
+            Platform yang membantu UMKM menemukan solusi digital dari produk
+            tugas akhir mahasiswa melalui katalog terverifikasi dan sistem
+            rekomendasi ReKarya Match.
+          </p>
+
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <Link
+              href="/login"
+              className="rounded-lg bg-white px-6 py-3 font-semibold text-blue-700"
+            >
+              Login Mahasiswa
+            </Link>
+
+            <Link
+              href="/register"
+              className="rounded-lg border border-white px-6 py-3 font-semibold text-white"
+            >
+              Cari Solusi UMKM
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Tentang ReKarya */}
+      <section className="mx-auto max-w-7xl px-6 py-20">
+        <h3 className="mb-6 text-3xl font-bold">Tentang ReKarya</h3>
+
+        <p className="text-lg leading-8 text-gray-600">
+          ReKarya adalah platform yang mempertemukan produk tugas akhir
+          mahasiswa dengan kebutuhan digital UMKM. Mahasiswa dapat mengunggah
+          produk tugas akhir, UMKM dapat mencari solusi berdasarkan kebutuhan
+          usaha, dan admin memverifikasi produk agar katalog tetap terkurasi.
+        </p>
+      </section>
+
+      {/* Produk Mahasiswa */}
+      <section id="produk" className="bg-gray-50 py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <h3 className="mb-10 text-3xl font-bold">Produk Mahasiswa</h3>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {[1, 2, 3].map((item) => (
+              <div
+                key={item}
+                className="rounded-2xl border bg-white p-6 shadow-sm"
+              >
+                <h4 className="mb-2 text-xl font-semibold">
+                  Sistem Penjualan Digital
+                </h4>
+
+                <p className="mb-3 text-gray-600">
+                  Solusi digital untuk membantu UMKM mengelola penjualan online.
+                </p>
+
+                <span className="mb-4 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700">
+                  Penjualan
+                </span>
+
+                <div>
+                  <Link
+                    href="/products"
+                    className="font-medium text-blue-600 hover:underline"
+                  >
+                    Lihat Detail
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Tren Masalah UMKM */}
+      <section id="tren" className="mx-auto max-w-7xl px-6 py-20">
+        <h3 className="mb-10 text-3xl font-bold">Tren Masalah UMKM</h3>
+
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {problems.map((problem) => (
+            <div key={problem} className="rounded-xl border p-4 font-medium">
+              {problem}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Alur Penggunaan */}
+      <section id="alur" className="bg-blue-50 py-20">
+        <div className="mx-auto max-w-7xl px-6 text-center">
+          <h3 className="mb-10 text-3xl font-bold">Alur Penggunaan</h3>
+
+          <p className="text-xl font-semibold text-blue-700">
+            Mahasiswa Upload → Admin Verifikasi → UMKM Cari → Kerja Sama
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Manfaat */}
+      <section id="manfaat" className="mx-auto max-w-7xl px-6 py-20">
+        <h3 className="mb-10 text-3xl font-bold">Manfaat</h3>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="rounded-2xl border p-6">
+            <h4 className="mb-3 text-xl font-semibold">Untuk Mahasiswa</h4>
+            <p className="text-gray-600">
+              Produk tugas akhir dapat terimplementasi dan memberikan dampak
+              nyata.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border p-6">
+            <h4 className="mb-3 text-xl font-semibold">Untuk UMKM</h4>
+            <p className="text-gray-600">
+              Mendapat solusi digital yang sesuai dengan kebutuhan usaha.
+            </p>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 py-8 text-white">
+        <div className="mx-auto max-w-7xl px-6 text-center text-sm text-gray-300">
+          © 2026 ReKarya. All rights reserved.
+        </div>
+      </footer>
+    </main>
   );
 }
