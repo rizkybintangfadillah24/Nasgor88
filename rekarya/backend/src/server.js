@@ -3,6 +3,8 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
 
+const authRoutes = require("./routes/authRoutes");
+
 dotenv.config();
 
 const app = express();
@@ -33,6 +35,16 @@ app.get("/api/health", (req, res) => {
     data: {
       status: "OK",
     },
+  });
+});
+
+app.use("/api/auth", authRoutes);
+
+app.use((req, res) => {
+  return res.status(404).json({
+    success: false,
+    message: "Endpoint tidak ditemukan",
+    errors: [],
   });
 });
 
