@@ -12,15 +12,15 @@
 
 | No | Test Case | Role | Status | Catatan |
 |---|---|---|---|---|
-| 1 | Register mahasiswa berhasil | Mahasiswa | [ ] |  |
-| 2 | Register UMKM berhasil | UMKM | [ ] |  |
-| 3 | Login mahasiswa berhasil | Mahasiswa | [ ] |  |
-| 4 | Login UMKM berhasil | UMKM | [ ] |  |
-| 5 | Login admin berhasil | Admin | [ ] |  |
-| 6 | Token JWT tersimpan setelah login | Semua | [ ] |  |
-| 7 | Endpoint `/api/auth/me` berhasil mengambil user aktif | Semua | [ ] |  |
-| 8 | User tanpa token tidak bisa akses endpoint protected | Semua | [ ] |  |
-| 9 | Role salah tidak bisa akses endpoint role lain | Semua | [ ] |  |
+| 1 | Register mahasiswa berhasil | Mahasiswa | [x] | Berhasil via Postman |
+| 2 | Register UMKM berhasil | UMKM | [x] | Berhasil via Postman |
+| 3 | Login mahasiswa berhasil | Mahasiswa | [x] | Token muncul |
+| 4 | Login UMKM berhasil | UMKM | [x] | Token muncul |
+| 5 | Login admin berhasil | Admin | [x] | Berhasil login menggunakan akun seed admin |
+| 6 | Token JWT muncul setelah login | Semua | [x] | Token muncul dari response login |
+| 7 | Endpoint `/api/auth/me` berhasil mengambil user aktif | Semua | [x] | Berhasil dengan Bearer token mahasiswa, UMKM, dan admin |
+| 8 | User tanpa token tidak bisa akses endpoint protected | Semua | [x] | Request tanpa token ditolak |
+| 9 | Password salah ditolak saat login | Semua | [x] | Login gagal sesuai expected |
 
 ---
 
