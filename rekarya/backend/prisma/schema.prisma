@@ -1,15 +1,363 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum Role {
+  MAHASISWA
+  UMKM
+  ADMIN
+}
+
+enum UserVerificationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ProductStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum DemoRequestStatus {
+  WAITING
+  APPROVED
+  REJECTED
+}
+
+enum CollaborationStatus {
+  WAITING
+  APPROVED
+  REJECTED
+  DONE
+}
+
+enum OfferStatus {
+  WAITING
+  APPROVED
+  REJECTED
+}
+
+enum PaymentStatus {
+  UNPAID
+  REVIEW
+  PAID
+}
+
+enum MentoringStatus {
+  ONGOING
+  DONE
+}
+
+enum ActivityType {
+  REGISTER
+  LOGIN
+  UPDATE_PROFILE
+  UPLOAD_PRODUCT
+  VERIFY_USER
+  VERIFY_PRODUCT
+  REQUEST_DEMO
+  UPDATE_DEMO_REQUEST
+  CREATE_COLLABORATION
+  UPDATE_COLLABORATION
+  CREATE_OFFER
+  UPDATE_OFFER
+  CREATE_TRANSACTION
+  UPDATE_TRANSACTION
+  CREATE_MENTORING
+  UPDATE_MENTORING
+  CREATE_REVIEW
+  MANAGE_CATEGORY
+}
+
+model User {
+  id                 Int                    @id @default(autoincrement())
+  username           String                 @unique
+  email              String                 @unique
+  password           String
+  role               Role
+  verificationStatus UserVerificationStatus @default(PENDING)
+
+  mahasiswaProfile MahasiswaProfile?
+  umkmProfile      UMKMProfile?
+
+  products         Product[] @relation("MahasiswaProducts")
+  verifiedProducts Product[] @relation("ProductVerifier")
+
+  demoRequestsAsUmkm      DemoRequest[] @relation("UMKMDemoRequests")
+  demoRequestsAsMahasiswa DemoRequest[] @relation("MahasiswaDemoRequests")
+
+  collaborationsAsUmkm      Collaboration[] @relation("UMKMCollaborations")
+  collaborationsAsMahasiswa Collaboration[] @relation("MahasiswaCollaborations")
+
+  offersAsMahasiswa Offer[] @relation("MahasiswaOffers")
+  offersAsUmkm      Offer[] @relation("UMKMOffers")
+
+  transactionsAsUmkm      Transaction[] @relation("UMKMTransactions")
+  transactionsAsMahasiswa Transaction[] @relation("MahasiswaTransactions")
+
+  mentoringAsUmkm      Mentoring[] @relation("UMKMMentoring")
+  mentoringAsMahasiswa Mentoring[] @relation("MahasiswaMentoring")
+
+  reviewsAsUmkm      Review[] @relation("UMKMReviews")
+  reviewsAsMahasiswa Review[] @relation("MahasiswaReviews")
+
+  verifiedUsers User[]    @relation("UserVerifier")
+  verifiedById  Int?
+  verifiedBy    User?     @relation("UserVerifier", fields: [verifiedById], references: [id], onDelete: SetNull)
+  verifiedAt    DateTime?
+
+  activityLogs ActivityLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model MahasiswaProfile {
+  id              Int     @id @default(autoincrement())
+  userId          Int     @unique
+  fullName        String?
+  phone           String?
+  bankAccount     String?
+  campus          String?
+  major           String?
+  studyProgram    String?
+  educationStatus String?
+  bio             String?
+  photo           String?
+  studentCard     String?
+  identityCard    String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("mahasiswa_profiles")
+}
+
+model UMKMProfile {
+  id                  Int     @id @default(autoincrement())
+  userId              Int     @unique
+  ownerName           String?
+  businessName        String?
+  businessType        String?
+  description         String?
+  address             String?
+  phone               String?
+  mainProblem         String?
+  specificNeeds       String?
+  budgetMin           Int?
+  budgetMax           Int?
+  targetDuration      Int?
+  mentoringPreference String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("umkm_profiles")
+}
+
+model Category {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  type        String
+  description String?
+
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("categories")
+}
+
+model Product {
+  id               Int           @id @default(autoincrement())
+  mahasiswaId      Int
+  categoryId       Int?
+  title            String
+  category         String
+  description      String
+  mainProblem      String
+  problemDetail    String?
+  targetBusiness   String
+  mainFeatures     String
+  featureDetail    String
+  technology       String
+  trainingDuration Int
+  mentoringMethod  String
+  price            Int
+  screenshot       String?
+  status           ProductStatus @default(PENDING)
+  verificationNote String?
+  verifiedById     Int?
+  verifiedAt       DateTime?
+
+  mahasiswa   User      @relation("MahasiswaProducts", fields: [mahasiswaId], references: [id], onDelete: Cascade)
+  verifiedBy  User?     @relation("ProductVerifier", fields: [verifiedById], references: [id], onDelete: SetNull)
+  categoryRef Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  demoRequests   DemoRequest[]
+  collaborations Collaboration[]
+  offers         Offer[]
+  reviews        Review[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("products")
+}
+
+model DemoRequest {
+  id          Int               @id @default(autoincrement())
+  productId   Int
+  umkmId      Int
+  mahasiswaId Int
+  message     String?
+  requestedAt DateTime?
+  status      DemoRequestStatus @default(WAITING)
+  note        String?
+
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  umkm      User    @relation("UMKMDemoRequests", fields: [umkmId], references: [id], onDelete: Cascade)
+  mahasiswa User    @relation("MahasiswaDemoRequests", fields: [mahasiswaId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("demo_requests")
+}
+
+model Collaboration {
+  id          Int                 @id @default(autoincrement())
+  productId   Int
+  umkmId      Int
+  mahasiswaId Int
+  message     String?
+  status      CollaborationStatus @default(WAITING)
+
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  umkm      User    @relation("UMKMCollaborations", fields: [umkmId], references: [id], onDelete: Cascade)
+  mahasiswa User    @relation("MahasiswaCollaborations", fields: [mahasiswaId], references: [id], onDelete: Cascade)
+
+  offers       Offer[]
+  transactions Transaction[]
+  mentoring    Mentoring[]
+  reviews      Review[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("collaborations")
+}
+
+model Offer {
+  id              Int         @id @default(autoincrement())
+  productId       Int
+  collaborationId Int
+  mahasiswaId     Int
+  umkmId          Int
+  title           String
+  description     String
+  price           Int
+  note            String?
+  status          OfferStatus @default(WAITING)
+
+  product       Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
+  collaboration Collaboration @relation(fields: [collaborationId], references: [id], onDelete: Cascade)
+  mahasiswa     User          @relation("MahasiswaOffers", fields: [mahasiswaId], references: [id], onDelete: Cascade)
+  umkm          User          @relation("UMKMOffers", fields: [umkmId], references: [id], onDelete: Cascade)
+
+  transactions Transaction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("offers")
+}
+
+model Transaction {
+  id              Int           @id @default(autoincrement())
+  collaborationId Int
+  offerId         Int?
+  umkmId          Int
+  mahasiswaId     Int
+  amount          Int
+  status          PaymentStatus @default(UNPAID)
+  note            String?
+
+  collaboration Collaboration @relation(fields: [collaborationId], references: [id], onDelete: Cascade)
+  offer         Offer?        @relation(fields: [offerId], references: [id], onDelete: SetNull)
+  umkm          User          @relation("UMKMTransactions", fields: [umkmId], references: [id], onDelete: Cascade)
+  mahasiswa     User          @relation("MahasiswaTransactions", fields: [mahasiswaId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("transactions")
+}
+
+model Mentoring {
+  id              Int             @id @default(autoincrement())
+  collaborationId Int
+  umkmId          Int
+  mahasiswaId     Int
+  schedule        DateTime?
+  progress        String
+  note            String?
+  status          MentoringStatus @default(ONGOING)
+
+  collaboration Collaboration @relation(fields: [collaborationId], references: [id], onDelete: Cascade)
+  umkm          User          @relation("UMKMMentoring", fields: [umkmId], references: [id], onDelete: Cascade)
+  mahasiswa     User          @relation("MahasiswaMentoring", fields: [mahasiswaId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("mentoring")
+}
+
+model Review {
+  id              Int     @id @default(autoincrement())
+  productId       Int
+  collaborationId Int
+  umkmId          Int
+  mahasiswaId     Int
+  rating          Int
+  comment         String?
+
+  product       Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
+  collaboration Collaboration @relation(fields: [collaborationId], references: [id], onDelete: Cascade)
+  umkm          User          @relation("UMKMReviews", fields: [umkmId], references: [id], onDelete: Cascade)
+  mahasiswa     User          @relation("MahasiswaReviews", fields: [mahasiswaId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("reviews")
+}
+
+model ActivityLog {
+  id          Int          @id @default(autoincrement())
+  userId      Int?
+  type        ActivityType
+  description String
+  metadata    Json?
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+
+  @@map("activity_logs")
 }
