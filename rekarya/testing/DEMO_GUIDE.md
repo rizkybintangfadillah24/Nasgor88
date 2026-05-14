@@ -99,6 +99,23 @@ Metode pendampingan: Online
 17. Dashboard admin menampilkan monitoring dan laporan.
 18. Tampilan aman di mobile dan desktop.
 
+## Catatan Kesiapan Demo Saat Ini
+
+Tanggal pengecekan: 14 Mei 2026
+
+| Area | Status | Catatan |
+|---|---|---|
+| Backend | Bisa running default awal | Server backend bisa dijalankan, tetapi fitur belum lengkap |
+| Frontend | Bisa running default awal | Frontend Next.js bisa dijalankan, tetapi masih default awal |
+| Database | Belum siap demo | Perlu cek schema.prisma, migration, dan seed |
+| Seed admin | Belum siap demo | File seed admin belum terlihat |
+| Auth | Belum siap demo | Login/register belum bisa dites |
+| Katalog | Belum siap demo | Halaman dan endpoint belum terlihat |
+| ReKarya Match | Belum siap demo | Endpoint dan halaman belum terlihat |
+| Dashboard role | Belum siap demo | Mahasiswa, UMKM, Admin belum terlihat |
+
+Kesimpulan: backend dan frontend sudah bisa running sebagai setup awal. Namun demo final belum bisa dijalankan sampai auth, database, produk, admin verification, ReKarya Match, dan dashboard role selesai.
+
 ## Catatan Demo
 
 Jika waktu presentasi terbatas, prioritaskan alur berikut:
