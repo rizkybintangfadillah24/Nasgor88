@@ -8,6 +8,10 @@ const mahasiswaProfileRoutes = require("./routes/mahasiswaProfileRoutes");
 const umkmProfileRoutes = require("./routes/umkmProfileRoutes");
 const productRoutes = require("./routes/productRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const matchRoutes = require("./routes/matchRoutes");
+const demoRequestRoutes = require("./routes/demoRequestRoutes");
+const collaborationRoutes = require("./routes/collaborationRoutes");
+const offerRoutes = require("./routes/offerRoutes");
 
 dotenv.config();
 
@@ -47,6 +51,10 @@ app.use("/api/mahasiswa", mahasiswaProfileRoutes);
 app.use("/api/umkm", umkmProfileRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/matches", matchRoutes);
+app.use("/api/demo-requests", demoRequestRoutes);
+app.use("/api/collaborations", collaborationRoutes);
+app.use("/api/offers", offerRoutes);
 
 app.use((err, req, res, next) => {
   if (err) {
