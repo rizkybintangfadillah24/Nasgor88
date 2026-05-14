@@ -6,29 +6,34 @@ Checklist ini digunakan untuk memastikan seluruh fitur ReKarya berjalan sesuai d
 
 | No | Test Case | Langkah Testing | Hasil yang Diharapkan | Status | Catatan |
 |---|---|---|---|---|---|
-| 1 | Register Mahasiswa | Kirim request register dengan role Mahasiswa | Akun Mahasiswa berhasil dibuat | Selesai | PASS |
-| 2 | Register UMKM | Kirim request register dengan role UMKM | Akun UMKM berhasil dibuat | Selesai | PASS |
-| 3 | Register Admin public | Kirim request register dengan role ADMIN | Sistem menolak role ADMIN | Selesai | PASS |
-| 4 | Register email duplikat | Kirim register dengan email yang sudah dipakai | Sistem menolak register | Selesai | PASS |
-| 5 | Login Mahasiswa | Login memakai akun Mahasiswa | Login berhasil dan token muncul | Selesai | PASS |
-| 6 | Login UMKM | Login memakai akun UMKM | Login berhasil dan token muncul | Selesai | PASS |
-| 7 | Login Admin | Login memakai akun Admin seed | Login berhasil dan token muncul | Selesai | PASS |
-| 8 | Login password salah | Masukkan password salah | Sistem menampilkan pesan error | Selesai | PASS |
-| 9 | Akses tanpa token | Buka endpoint /auth/me tanpa token | Sistem menolak akses | Selesai | PASS |
-| 10 | Akses token valid | Buka endpoint /auth/me dengan token valid | Data user aktif tampil | Selesai | PASS |
-| 11 | Akses token invalid | Buka endpoint /auth/me dengan token salah | Sistem menolak akses | Selesai | PASS |
-| 12 | Change password | Ubah password dari akun login | Password berhasil berubah | Selesai | PASS |
-| 13 | Login password lama | Login memakai password lama setelah change password | Sistem menolak login | Selesai | PASS |
-| 14 | Login password baru | Login memakai password baru setelah change password | Login berhasil | Selesai | PASS |
-| 15 | Middleware role Admin | Mahasiswa mencoba akses endpoint Admin | Sistem menolak akses | Selesai | PASS |
-| 16 | Middleware role Mahasiswa | UMKM mencoba akses endpoint Mahasiswa | Sistem menolak akses | Selesai | PASS |
-| 17 | Middleware role UMKM | Mahasiswa mencoba akses endpoint UMKM | Sistem menolak akses | Selesai | PASS |
+| 1 | Register Mahasiswa API | Kirim request register dengan role Mahasiswa | Akun Mahasiswa berhasil dibuat | Selesai | PASS checkpoint 5 |
+| 2 | Register UMKM API | Kirim request register dengan role UMKM | Akun UMKM berhasil dibuat | Selesai | PASS checkpoint 5 |
+| 3 | Register Admin public | Kirim request register dengan role ADMIN | Sistem menolak role ADMIN | Selesai | PASS checkpoint 5 |
+| 4 | Register email duplikat | Kirim register dengan email yang sudah dipakai | Sistem menolak register | Selesai | PASS checkpoint 5 |
+| 5 | Login Mahasiswa API | Login memakai akun Mahasiswa | Login berhasil dan token muncul | Selesai | PASS checkpoint 5 |
+| 6 | Login UMKM API | Login memakai akun UMKM | Login berhasil dan token muncul | Selesai | PASS checkpoint 5 |
+| 7 | Login Admin API | Login memakai akun Admin seed | Login berhasil dan token muncul | Selesai | PASS checkpoint 5 |
+| 8 | Login password salah API | Masukkan password salah | Sistem menampilkan pesan error | Selesai | PASS checkpoint 5 |
+| 9 | Akses tanpa token | Buka endpoint /auth/me tanpa token | Sistem menolak akses | Selesai | PASS checkpoint 5 |
+| 10 | Akses token valid | Buka endpoint /auth/me dengan token valid | Data user aktif tampil | Selesai | PASS checkpoint 5 |
+| 11 | Akses token invalid | Buka endpoint /auth/me dengan token salah | Sistem menolak akses | Selesai | PASS checkpoint 5 |
+| 12 | Change password | Ubah password dari akun login | Password berhasil berubah | Selesai | PASS checkpoint 5 |
+| 13 | Login password lama | Login memakai password lama setelah change password | Sistem menolak login | Selesai | PASS checkpoint 5 |
+| 14 | Login password baru | Login memakai password baru setelah change password | Login berhasil | Selesai | PASS checkpoint 5 |
+| 15 | Middleware role Admin | Mahasiswa mencoba akses endpoint Admin | Sistem menolak akses | Selesai | PASS checkpoint 5 |
+| 16 | Middleware role Mahasiswa | UMKM mencoba akses endpoint Mahasiswa | Sistem menolak akses | Selesai | PASS checkpoint 5 |
+| 17 | Middleware role UMKM | Mahasiswa mencoba akses endpoint UMKM | Sistem menolak akses | Selesai | PASS checkpoint 5 |
+| 18 | Login Mahasiswa frontend | Login dari halaman /login | Login berhasil dan redirect sesuai role | Selesai | PASS checkpoint 6 |
+| 19 | Login UMKM frontend | Login dari halaman /login | Login berhasil dan redirect sesuai role | Selesai | PASS checkpoint 6 |
+| 20 | Login Admin frontend | Login dari halaman /login | Login berhasil dan redirect sesuai role | Selesai | PASS checkpoint 6 |
+| 21 | Register Mahasiswa frontend | Register dari halaman /register | Register berhasil dan redirect ke login | Selesai | PASS checkpoint 6 |
+| 22 | Register UMKM frontend | Register dari halaman /register | Register berhasil dan redirect ke login | Selesai | PASS checkpoint 6 |
 
 ## 2. Mahasiswa
 
 | No | Test Case | Langkah Testing | Hasil yang Diharapkan | Status | Catatan |
 |---|---|---|---|---|---|
-| 1 | Dashboard Mahasiswa | Login sebagai Mahasiswa | Dashboard Mahasiswa tampil | Belum | Menunggu halaman frontend |
+| 1 | Dashboard Mahasiswa | Login sebagai Mahasiswa | Dashboard Mahasiswa tampil | Belum | Masuk checkpoint dashboard mahasiswa |
 | 2 | Update profil | Isi data profil Mahasiswa | Data profil tersimpan | Belum | Masuk checkpoint profile |
 | 3 | Upload foto profil | Upload file JPG/PNG | Foto tersimpan | Belum | Menunggu testing Multer |
 | 4 | Upload KTM/surat aktif kuliah | Upload JPG/PNG/PDF | File tersimpan | Belum | Menunggu testing Multer |
@@ -49,7 +54,7 @@ Checklist ini digunakan untuk memastikan seluruh fitur ReKarya berjalan sesuai d
 
 | No | Test Case | Langkah Testing | Hasil yang Diharapkan | Status | Catatan |
 |---|---|---|---|---|---|
-| 1 | Dashboard UMKM | Login sebagai UMKM | Dashboard UMKM tampil | Belum | Menunggu halaman frontend |
+| 1 | Dashboard UMKM | Login sebagai UMKM | Dashboard UMKM tampil | Belum | Masuk checkpoint dashboard UMKM |
 | 2 | Update profil UMKM | Isi data usaha | Data usaha tersimpan | Belum | Masuk checkpoint profile |
 | 3 | Cari solusi | Isi form cari solusi | List rekomendasi tampil | Belum | Menunggu ReKarya Match |
 | 4 | ReKarya Match score | Cek hasil rekomendasi | Match Score tampil | Belum | Menunggu endpoint |
@@ -72,21 +77,22 @@ Checklist ini digunakan untuk memastikan seluruh fitur ReKarya berjalan sesuai d
 | No | Test Case | Langkah Testing | Hasil yang Diharapkan | Status | Catatan |
 |---|---|---|---|---|---|
 | 1 | Login Admin API | Login sebagai Admin seed | Login berhasil dan token muncul | Selesai | PASS checkpoint 5 |
-| 2 | Dashboard Admin | Login sebagai Admin dari frontend | Dashboard Admin tampil | Belum | Menunggu halaman frontend dan endpoint dashboard |
-| 3 | Verifikasi akun | Buka akun pending | Akun bisa disetujui/ditolak | Belum | Menunggu endpoint |
-| 4 | Lihat produk pending | Akses endpoint admin produk pending dengan token admin | Produk pending bisa diakses admin | Selesai untuk role middleware | PASS sebagai test role |
-| 5 | Approve produk | Setujui produk Mahasiswa | Status menjadi APPROVED | Belum | Menunggu testing produk |
-| 6 | Reject produk | Tolak produk Mahasiswa | Status menjadi REJECTED | Belum | Menunggu testing produk |
-| 7 | Produk approved di katalog | Cek katalog setelah approve | Produk tampil di katalog | Belum | Menunggu katalog |
-| 8 | Produk pending tidak tampil | Cek katalog sebelum approve | Produk tidak tampil | Belum | Menunggu katalog |
-| 9 | Produk rejected tidak tampil | Cek katalog setelah reject | Produk tidak tampil | Belum | Menunggu katalog |
-| 10 | Kelola kategori | Tambah/edit/hapus kategori | Kategori berhasil dikelola | Belum | Menunggu endpoint |
-| 11 | Monitoring aktivitas | Buka menu aktivitas | Data aktivitas tampil | Belum | Menunggu endpoint |
-| 12 | Monitoring transaksi | Buka menu transaksi | Data transaksi tampil | Belum | Menunggu endpoint |
-| 13 | Update status pembayaran | Ubah status pembayaran | Status berhasil berubah | Belum | Menunggu endpoint |
-| 14 | Monitoring pendampingan | Buka menu pendampingan | Data pendampingan tampil | Belum | Menunggu endpoint |
-| 15 | Statistik masalah UMKM | Buka statistik masalah | Data statistik tampil | Belum | Menunggu endpoint |
-| 16 | Laporan sistem | Buka laporan sistem | Ringkasan laporan tampil | Belum | Menunggu endpoint |
+| 2 | Login Admin frontend | Login dari halaman /login | Redirect ke /admin/dashboard | Selesai | PASS checkpoint 6 |
+| 3 | Dashboard Admin | Login sebagai Admin dari frontend | Dashboard Admin tampil | Belum | Menunggu dashboard admin penuh |
+| 4 | Verifikasi akun | Buka akun pending | Akun bisa disetujui/ditolak | Belum | Menunggu endpoint |
+| 5 | Lihat produk pending | Akses endpoint admin produk pending dengan token admin | Produk pending bisa diakses admin | Selesai untuk role middleware | PASS sebagai test role |
+| 6 | Approve produk | Setujui produk Mahasiswa | Status menjadi APPROVED | Belum | Menunggu testing produk |
+| 7 | Reject produk | Tolak produk Mahasiswa | Status menjadi REJECTED | Belum | Menunggu testing produk |
+| 8 | Produk approved di katalog | Cek katalog setelah approve | Produk tampil di katalog | Belum | Menunggu katalog |
+| 9 | Produk pending tidak tampil | Cek katalog sebelum approve | Produk tidak tampil | Belum | Menunggu katalog |
+| 10 | Produk rejected tidak tampil | Cek katalog setelah reject | Produk tidak tampil | Belum | Menunggu katalog |
+| 11 | Kelola kategori | Tambah/edit/hapus kategori | Kategori berhasil dikelola | Belum | Menunggu endpoint |
+| 12 | Monitoring aktivitas | Buka menu aktivitas | Data aktivitas tampil | Belum | Menunggu endpoint |
+| 13 | Monitoring transaksi | Buka menu transaksi | Data transaksi tampil | Belum | Menunggu endpoint |
+| 14 | Update status pembayaran | Ubah status pembayaran | Status berhasil berubah | Belum | Menunggu endpoint |
+| 15 | Monitoring pendampingan | Buka menu pendampingan | Data pendampingan tampil | Belum | Menunggu endpoint |
+| 16 | Statistik masalah UMKM | Buka statistik masalah | Data statistik tampil | Belum | Menunggu endpoint |
+| 17 | Laporan sistem | Buka laporan sistem | Ringkasan laporan tampil | Belum | Menunggu endpoint |
 
 ## 5. ReKarya Match
 
@@ -122,15 +128,15 @@ Checklist ini digunakan untuk memastikan seluruh fitur ReKarya berjalan sesuai d
 
 | No | Halaman | Ukuran Layar | Hasil yang Diharapkan | Status | Catatan |
 |---|---|---|---|---|---|
-| 1 | Landing Page | Mobile | Tampilan tidak rusak | Belum | Landing masih default |
-| 2 | Login | Mobile | Form rapi | Belum | Halaman belum ada |
-| 3 | Register | Mobile | Form rapi | Belum | Halaman belum ada |
-| 4 | Dashboard Mahasiswa | Mobile | Menu dan card rapi | Belum | Halaman belum ada |
-| 5 | Dashboard UMKM | Mobile | Menu dan card rapi | Belum | Halaman belum ada |
-| 6 | Dashboard Admin | Desktop | Tabel rapi | Belum | Halaman belum ada |
-| 7 | Katalog Produk | Mobile | Card produk rapi | Belum | Halaman belum ada |
-| 8 | Detail Produk | Mobile | Informasi tidak melebar | Belum | Halaman belum ada |
-| 9 | Tabel Admin | Mobile/Desktop | Bisa scroll horizontal | Belum | Halaman belum ada |
+| 1 | Landing Page | Mobile | Tampilan tidak rusak | Selesai | PASS checkpoint 6 |
+| 2 | Login | Mobile | Form rapi | Selesai | PASS checkpoint 6 |
+| 3 | Register | Mobile | Form rapi | Selesai | PASS checkpoint 6 |
+| 4 | Dashboard Mahasiswa | Mobile | Menu dan card rapi | Belum | Menunggu dashboard mahasiswa |
+| 5 | Dashboard UMKM | Mobile | Menu dan card rapi | Belum | Menunggu dashboard UMKM |
+| 6 | Dashboard Admin | Desktop | Tabel rapi | Belum | Menunggu dashboard admin |
+| 7 | Katalog Produk | Mobile | Card produk rapi | Belum | Menunggu katalog |
+| 8 | Detail Produk | Mobile | Informasi tidak melebar | Belum | Menunggu detail produk |
+| 9 | Tabel Admin | Mobile/Desktop | Bisa scroll horizontal | Belum | Menunggu halaman admin |
 
 ## 8. Checklist Struktur dan Running Project
 
@@ -145,7 +151,7 @@ Checklist ini digunakan untuk memastikan seluruh fitur ReKarya berjalan sesuai d
 | 7 | Backend | Folder controllers tersedia | src/controllers ada | Ada | Selesai | Controller auth, admin, profile, product tersedia |
 | 8 | Backend | Folder middleware tersedia | src/middleware ada | Ada | Selesai | Auth dan upload middleware tersedia |
 | 9 | Backend | Folder routes tersedia | src/routes ada | Ada | Selesai | Routes auth, admin, profile, product tersedia |
-| 10 | Backend | Folder services tersedia | src/services ada | Belum terlihat | Belum | Tidak menjadi blocker checkpoint 5 |
+| 10 | Backend | Folder services tersedia | src/services ada | Belum terlihat | Belum | Tidak menjadi blocker checkpoint 5 dan 6 |
 | 11 | Backend | Folder utils tersedia | src/utils ada | Ada | Selesai | Response utility tersedia |
 | 12 | Backend | Folder uploads tersedia | src/uploads ada | Belum dites | Belum | Perlu untuk Multer |
 | 13 | Backend | Seed admin tersedia | prisma/seed.js ada dan bisa dijalankan | Ada dan berhasil | Selesai | Admin seed berhasil |
@@ -153,11 +159,14 @@ Checklist ini digunakan untuk memastikan seluruh fitur ReKarya berjalan sesuai d
 | 15 | Frontend | Next config tersedia | next.config.ts ada | Ada | Selesai | Sesuai |
 | 16 | Frontend | TypeScript config tersedia | tsconfig.json ada | Ada | Selesai | Sesuai |
 | 17 | Frontend | App Router tersedia | app atau src/app ada | app ada | Selesai | App Router tersedia |
-| 18 | Frontend | Frontend bisa running | Frontend berjalan tanpa error awal | Bisa running | Selesai | Running masih default awal |
-| 19 | Frontend | Folder src tersedia | frontend/src ada | Belum terlihat | Belum | Dokumen final meminta src/app |
-| 20 | Frontend | Folder components tersedia | components ada | Belum terlihat | Belum | Perlu untuk komponen UI |
-| 21 | Frontend | Folder lib tersedia | lib ada | Belum terlihat | Belum | Perlu untuk API/helper |
-| 22 | Frontend | Folder types tersedia | types ada | Belum terlihat | Belum | Perlu untuk TypeScript type |
+| 18 | Frontend | Frontend bisa running | Frontend berjalan tanpa error awal | Bisa running | Selesai | Running frontend berhasil |
+| 19 | Frontend | Landing page tersedia | Halaman / tampil sesuai ReKarya | Ada dan dites | Selesai | PASS checkpoint 6 |
+| 20 | Frontend | Login page tersedia | Halaman /login tersedia | Ada dan dites | Selesai | PASS checkpoint 6 |
+| 21 | Frontend | Register page tersedia | Halaman /register tersedia | Ada dan dites | Selesai | PASS checkpoint 6 |
+| 22 | Frontend | Folder src tersedia | frontend/src ada | Belum terlihat | Belum | Dokumen final meminta src/app |
+| 23 | Frontend | Folder components tersedia | components ada | Belum terlihat | Belum | Perlu untuk komponen UI |
+| 24 | Frontend | Folder lib tersedia | lib ada | Ada jika api helper digunakan | Perlu dicek | Digunakan untuk base API frontend |
+| 25 | Frontend | Folder types tersedia | types ada | Belum terlihat | Belum | Perlu untuk TypeScript type |
 
 ## 9. Checklist Checkpoint 4 - Database Schema dan Admin Seed
 
@@ -196,9 +205,43 @@ Checklist ini digunakan untuk memastikan seluruh fitur ReKarya berjalan sesuai d
 | 17 | Middleware Role | Mahasiswa akses endpoint UMKM | Sistem menolak akses | Ditolak | Selesai | PASS |
 | 18 | Middleware Role | Admin akses endpoint Admin | Sistem menerima akses | Berhasil | Selesai | PASS |
 | 19 | Route Check | GET /admin/dashboard | Endpoint belum tersedia | 404 Not Found | Dicatat | Finding, bukan blocker checkpoint 5 |
-| 20 | Checkpoint 5 | Status akhir checkpoint | Semua target auth utama berhasil | PASS | Selesai | Siap lanjut checkpoint berikutnya |
+| 20 | Checkpoint 5 | Status akhir checkpoint | Semua target auth utama berhasil | PASS | Selesai | Siap lanjut checkpoint 6 |
 
-## 11. Status Akhir Testing Saat Ini
+## 11. Checklist Checkpoint 6 - Landing dan Auth Pages
+
+| No | Area | Test Case | Hasil yang Diharapkan | Hasil Cek Saat Ini | Status | Catatan |
+|---|---|---|---|---|---|---|
+| 1 | Frontend | Frontend running | Frontend berjalan tanpa error | Berhasil | Selesai | PASS |
+| 2 | Landing | Halaman / | Landing page tampil | Berhasil | Selesai | PASS |
+| 3 | Landing | Navbar | Logo dan menu tampil | Berhasil | Selesai | PASS |
+| 4 | Landing | Hero section | Judul, deskripsi, dan tombol tampil | Berhasil | Selesai | PASS |
+| 5 | Landing | Section produk | Card/list produk tampil | Berhasil | Selesai | PASS |
+| 6 | Landing | Tren UMKM | Tren masalah UMKM tampil | Berhasil | Selesai | PASS |
+| 7 | Landing | Alur penggunaan | Alur penggunaan tampil | Berhasil | Selesai | PASS |
+| 8 | Landing | Manfaat | Manfaat Mahasiswa dan UMKM tampil | Berhasil | Selesai | PASS |
+| 9 | Landing | Footer | Footer tampil | Berhasil | Selesai | PASS |
+| 10 | Auth Frontend | Halaman /login | Form login tampil | Berhasil | Selesai | PASS |
+| 11 | Auth Frontend | Halaman /register | Form register tampil | Berhasil | Selesai | PASS |
+| 12 | Auth Frontend | Endpoint login | Mengarah ke http://localhost:5000/api/auth/login | Berhasil | Selesai | Sebelumnya salah ke localhost:3000, sudah diperbaiki |
+| 13 | Auth Frontend | Endpoint register | Mengarah ke http://localhost:5000/api/auth/register | Berhasil | Selesai | Sebelumnya salah ke localhost:3000, sudah diperbaiki |
+| 14 | Auth Frontend | Payload register | Mengirim username, email, password, confirmPassword, role | Berhasil | Selesai | Sebelumnya confirmPassword belum terkirim, sudah diperbaiki |
+| 15 | Auth Frontend | Register Mahasiswa | Akun Mahasiswa berhasil dibuat dari frontend | Berhasil | Selesai | PASS |
+| 16 | Auth Frontend | Register UMKM | Akun UMKM berhasil dibuat dari frontend | Berhasil | Selesai | PASS |
+| 17 | Auth Frontend | Login Mahasiswa | Login berhasil dari frontend | Berhasil | Selesai | PASS |
+| 18 | Auth Frontend | Login UMKM | Login berhasil dari frontend | Berhasil | Selesai | PASS |
+| 19 | Auth Frontend | Login Admin | Login berhasil dari frontend | Berhasil | Selesai | PASS |
+| 20 | Auth Frontend | Redirect Mahasiswa | Mengarah ke /mahasiswa/dashboard | Berhasil | Selesai | PASS |
+| 21 | Auth Frontend | Redirect UMKM | Mengarah ke /umkm/dashboard | Berhasil | Selesai | PASS |
+| 22 | Auth Frontend | Redirect Admin | Mengarah ke /admin/dashboard | Berhasil | Selesai | PASS |
+| 23 | Auth Frontend | Login error handling | Password salah ditolak dan pesan error tampil | Berhasil | Selesai | PASS |
+| 24 | Auth Frontend | Register validation | Field kosong/password beda/duplikat ditangani | Berhasil | Selesai | PASS |
+| 25 | Auth Frontend | Token tersimpan | Token tersimpan setelah login | Berhasil | Selesai | PASS |
+| 26 | Responsif | Landing mobile/tablet/desktop | Tampilan aman | Berhasil | Selesai | PASS |
+| 27 | Responsif | Login mobile/tablet/desktop | Tampilan aman | Berhasil | Selesai | PASS |
+| 28 | Responsif | Register mobile/tablet/desktop | Tampilan aman | Berhasil | Selesai | PASS |
+| 29 | Checkpoint 6 | Status akhir checkpoint | Semua target checkpoint 6 selesai | PASS | Selesai | Siap lanjut checkpoint berikutnya |
+
+## 12. Status Akhir Testing Saat Ini
 
 | Area | Status Akhir |
 |---|---|
@@ -206,27 +249,30 @@ Checklist ini digunakan untuk memastikan seluruh fitur ReKarya berjalan sesuai d
 | Frontend running awal | Selesai |
 | Checkpoint 4 Database | PASS |
 | Checkpoint 5 Authentication API | PASS |
-| Auth | Selesai untuk backend API |
+| Checkpoint 6 Landing dan Auth Pages | PASS |
+| Auth | Selesai untuk backend API dan frontend auth |
 | Mahasiswa | Belum selesai penuh |
 | UMKM | Belum selesai penuh |
 | Admin | Belum selesai penuh |
 | ReKarya Match | Belum selesai |
 | Upload File | Belum selesai |
-| Responsivitas | Belum selesai |
+| Responsivitas landing/auth | Selesai |
 | Demo Final | Belum selesai penuh |
 
-## 12. Kesimpulan Testing Sementara
+## 13. Kesimpulan Testing Sementara
 
-Backend dan frontend sudah berhasil running sebagai project default awal.
+Backend dan frontend sudah berhasil running.
 
 Checkpoint 4 backend sudah dinyatakan PASS karena schema Prisma valid, Prisma generate berhasil, migration berhasil, seed admin berhasil, dan admin sudah ada di database.
 
 Checkpoint 5 backend juga dinyatakan PASS karena register, login, JWT token, auth me, change password, dan middleware role berhasil dites sesuai hasil yang diharapkan.
 
+Checkpoint 6 frontend dinyatakan PASS karena landing page, login page, register page, integrasi backend auth, redirect role, validasi form, token, dan responsivitas halaman awal berhasil dites.
+
 Keputusan testing saat ini:
 
 | Area | Keputusan |
 |---|---|
-| Backend | Boleh lanjut ke checkpoint berikutnya, yaitu profile/upload file atau product sesuai urutan tim |
-| Frontend | Tetap menunggu landing page, login, register, dan struktur sesuai dokumen |
+| Backend | Boleh lanjut ke checkpoint profile/upload file atau produk sesuai urutan tim |
+| Frontend | Boleh lanjut ke dashboard Mahasiswa atau halaman sesuai checkpoint berikutnya |
 | Testing | Melanjutkan pencatatan checkpoint dan menunggu fitur berikutnya siap dites |

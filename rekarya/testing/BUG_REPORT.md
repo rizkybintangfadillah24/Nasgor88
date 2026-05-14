@@ -26,7 +26,8 @@ Dokumen ini digunakan untuk mencatat semua bug, finding, dan catatan hasil testi
 
 | ID | Tanggal | Role | Halaman/Fitur | Deskripsi Bug | Langkah Reproduksi | Expected Result | Actual Result | Severity | Status | PIC | Catatan |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| BUG-001 | - | - | - | Belum ada bug fitur yang dites | - | - | - | - | - | - | Belum ada bug utama yang perlu dicatat |
+| BUG-CP6-001 | 14 Mei 2026 | Public | Login/Register Frontend | Frontend login dan register awalnya mengarah ke localhost:3000/auth, bukan backend localhost:5000/api/auth | Submit login/register dari frontend | Request mengarah ke backend /api/auth | Request 404 ke localhost:3000/auth | High | Closed | Frontend | Sudah diperbaiki dengan base URL backend |
+| BUG-CP6-002 | 14 Mei 2026 | Public | Register Frontend | Payload register frontend awalnya belum mengirim confirmPassword | Submit register dari frontend | Backend menerima username, email, password, confirmPassword, role | Backend mengembalikan "Semua field wajib diisi" | High | Closed | Frontend | Sudah diperbaiki dengan menambahkan confirmPassword pada payload |
 
 ## Finding Struktur Awal
 
@@ -39,8 +40,8 @@ Dokumen ini digunakan untuk mencatat semua bug, finding, dan catatan hasil testi
 | FIND-005 | 14 Mei 2026 | Backend | prisma/seed.js tersedia dan seed admin berhasil | Akun admin demo sudah tersedia di database lokal | Info | Closed | Backend | Selesai pada Checkpoint 4 |
 | FIND-006 | 14 Mei 2026 | Backend | schema.prisma berhasil divalidasi | Model database dapat digunakan oleh Prisma | Info | Closed | Backend | Prisma validate berhasil |
 | FIND-007 | 14 Mei 2026 | Frontend | Struktur frontend memakai app, bukan src/app | Tidak sesuai struktur final dokumen | Medium | Open | Frontend | Perlu konfirmasi apakah akan dipindah ke src/app |
-| FIND-008 | 14 Mei 2026 | Frontend | Folder components, lib, dan types belum terlihat | Struktur frontend belum siap untuk pengembangan rapi | Medium | Open | Frontend | Perlu dilengkapi |
-| FIND-009 | 14 Mei 2026 | Frontend | Halaman login dan register belum terlihat | Auth frontend belum bisa dites | High | Open | Frontend | Menunggu checkpoint landing dan auth pages |
+| FIND-008 | 14 Mei 2026 | Frontend | Folder components dan types belum terlihat | Struktur frontend belum sepenuhnya sesuai dokumen | Medium | Open | Frontend | Perlu dilengkapi pada checkpoint lanjutan |
+| FIND-009 | 14 Mei 2026 | Frontend | Halaman login dan register sudah tersedia | Auth frontend sudah bisa dites | Info | Closed | Frontend | Selesai pada Checkpoint 6 |
 
 ## Finding Checkpoint 4 - Database Schema dan Admin Seed
 
@@ -78,51 +79,42 @@ Dokumen ini digunakan untuk mencatat semua bug, finding, dan catatan hasil testi
 | FIND-CP5-019 | 14 Mei 2026 | Middleware Role | Admin berhasil akses endpoint Admin | Role middleware menerima role yang benar | Info | Closed | Backend | PASS |
 | FIND-CP5-020 | 14 Mei 2026 | Admin Route | GET /api/admin/dashboard belum tersedia | Endpoint tersebut tidak bisa dipakai untuk test role | Low | Open | Backend | Test role diganti memakai GET /api/admin/products/pending |
 
+## Finding Checkpoint 6 - Landing dan Auth Pages
+
+| ID | Tanggal | Area | Temuan | Dampak | Severity | Status | PIC | Catatan |
+|---|---|---|---|---|---|---|---|---|
+| FIND-CP6-001 | 14 Mei 2026 | Frontend | Frontend running berhasil | Halaman frontend bisa diakses | Info | Closed | Frontend | PASS |
+| FIND-CP6-002 | 14 Mei 2026 | Frontend Landing | Landing page tampil | User dapat melihat halaman awal ReKarya | Info | Closed | Frontend | PASS |
+| FIND-CP6-003 | 14 Mei 2026 | Frontend Landing | Navbar, hero, produk, tren UMKM, alur, manfaat, dan footer tampil | Landing sesuai checkpoint 6 | Info | Closed | Frontend | PASS |
+| FIND-CP6-004 | 14 Mei 2026 | Frontend Auth | Login page tampil | User dapat membuka halaman login | Info | Closed | Frontend | PASS |
+| FIND-CP6-005 | 14 Mei 2026 | Frontend Auth | Register page tampil | User dapat membuka halaman register | Info | Closed | Frontend | PASS |
+| FIND-CP6-006 | 14 Mei 2026 | Frontend Auth | Login frontend berhasil mengarah ke backend /api/auth/login | Login frontend bisa terhubung ke backend | Info | Closed | Frontend | PASS |
+| FIND-CP6-007 | 14 Mei 2026 | Frontend Auth | Register frontend berhasil mengarah ke backend /api/auth/register | Register frontend bisa terhubung ke backend | Info | Closed | Frontend | PASS |
+| FIND-CP6-008 | 14 Mei 2026 | Frontend Auth | Register Mahasiswa dari frontend berhasil | Akun Mahasiswa bisa dibuat dari UI | Info | Closed | Frontend | PASS |
+| FIND-CP6-009 | 14 Mei 2026 | Frontend Auth | Register UMKM dari frontend berhasil | Akun UMKM bisa dibuat dari UI | Info | Closed | Frontend | PASS |
+| FIND-CP6-010 | 14 Mei 2026 | Frontend Auth | Login Mahasiswa dari frontend berhasil | Mahasiswa bisa login dari UI | Info | Closed | Frontend | PASS |
+| FIND-CP6-011 | 14 Mei 2026 | Frontend Auth | Login UMKM dari frontend berhasil | UMKM bisa login dari UI | Info | Closed | Frontend | PASS |
+| FIND-CP6-012 | 14 Mei 2026 | Frontend Auth | Login Admin dari frontend berhasil | Admin bisa login dari UI | Info | Closed | Frontend | PASS |
+| FIND-CP6-013 | 14 Mei 2026 | Frontend Auth | Redirect role berhasil | User diarahkan sesuai role | Info | Closed | Frontend | PASS |
+| FIND-CP6-014 | 14 Mei 2026 | Frontend Auth | Error handling login dan register berjalan | User mendapat pesan error saat input salah | Info | Closed | Frontend | PASS |
+| FIND-CP6-015 | 14 Mei 2026 | Frontend Auth | Token tersimpan setelah login | Sesi login bisa digunakan untuk fitur berikutnya | Info | Closed | Frontend | PASS |
+| FIND-CP6-016 | 14 Mei 2026 | Frontend Responsif | Landing, login, dan register responsif | Tampilan aman pada mobile/tablet/desktop | Info | Closed | Frontend | PASS |
+
 ## Bug Detail
 
-### BUG-001
+### BUG-CP6-001
 
-Tanggal: -  
-Role: -  
-Halaman/Fitur: -  
-Severity: -  
-Status: -  
-PIC: -  
+Tanggal: 14 Mei 2026  
+Role: Public  
+Halaman/Fitur: Login/Register Frontend  
+Severity: High  
+Status: Closed  
+PIC: Frontend  
 
 #### Deskripsi Bug
 
-Belum ada bug utama yang dicatat karena hasil testing checkpoint 4 dan checkpoint 5 sudah sesuai harapan.
+Frontend login dan register awalnya mengirim request ke endpoint frontend:
 
-#### Langkah Reproduksi
-
-Belum ada.
-
-#### Expected Result
-
-Belum ada.
-
-#### Actual Result
-
-Belum ada.
-
-#### Bukti
-
-Belum ada.
-
-#### Catatan Perbaikan
-
-Belum ada.
-
-#### Hasil Retest
-
-Belum ada.
-
-## Catatan Testing
-
-Backend dan frontend sudah bisa running sebagai project default awal.
-
-Checkpoint 4 sudah PASS karena schema Prisma valid, Prisma generate berhasil, migration berhasil, seed admin berhasil, dan admin tersedia di database.
-
-Checkpoint 5 sudah PASS karena register, login, JWT, auth me, change password, dan middleware role berhasil dites.
-
-Finding yang masih open bukan berarti checkpoint 5 gagal. Finding open hanya mencatat fitur atau endpoint yang belum masuk target checkpoint tersebut, seperti endpoint admin dashboard.
+```text
+http://localhost:3000/auth/login
+http://localhost:3000/auth/register

@@ -20,6 +20,11 @@ export default function RegisterPage() {
     e.preventDefault();
     setError("");
 
+    if (!username || !email || !password || !confirmPassword || !role) {
+      setError("Semua field wajib diisi.");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError("Konfirmasi password tidak sesuai.");
       return;
@@ -32,6 +37,7 @@ export default function RegisterPage() {
         username,
         email,
         password,
+        confirmPassword,
         role,
       });
 

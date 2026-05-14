@@ -40,6 +40,7 @@ Testing berfokus pada:
 7. Testing hanya push saat gilirannya.
 8. Testing tidak melakukan force push.
 9. File .env lokal tidak boleh di-push ke GitHub.
+10. File .env.local frontend tidak boleh di-push ke GitHub.
 
 ## Dokumen Testing
 
@@ -61,21 +62,25 @@ Testing berfokus pada:
 | Migration database | Selesai |
 | Seed admin | Selesai |
 | Auth API | Selesai |
-| Register Mahasiswa | Selesai |
-| Register UMKM | Selesai |
-| Login Mahasiswa | Selesai |
-| Login UMKM | Selesai |
-| Login Admin | Selesai |
+| Register Mahasiswa API | Selesai |
+| Register UMKM API | Selesai |
+| Login Mahasiswa API | Selesai |
+| Login UMKM API | Selesai |
+| Login Admin API | Selesai |
 | JWT token | Selesai |
 | Auth me | Selesai |
 | Change password | Selesai |
 | Middleware role | Selesai |
+| Landing page frontend | Selesai |
+| Login frontend | Selesai |
+| Register frontend | Selesai |
+| Redirect role frontend | Selesai |
+| Responsivitas checkpoint 6 | Selesai |
 | Mahasiswa | Belum dites penuh |
 | UMKM | Belum dites penuh |
 | Admin | Belum dites penuh |
 | ReKarya Match | Belum dites |
 | Upload File | Belum dites |
-| Responsivitas | Belum dites |
 | Demo Final | Belum dites penuh |
 
 ## Catatan Pengecekan Struktur Awal
@@ -126,6 +131,13 @@ Branch: main
 | node_modules | Ada | Dependency sudah pernah di-install |
 | app | Ada | App Router tersedia |
 | Frontend running | Bisa running | Sesuai checkpoint awal |
+| Landing page | Ada dan berhasil dites | Checkpoint 6 pass |
+| Login page | Ada dan berhasil dites | Checkpoint 6 pass |
+| Register page | Ada dan berhasil dites | Checkpoint 6 pass |
+| Login frontend ke backend | Berhasil | Checkpoint 6 pass |
+| Register frontend ke backend | Berhasil | Checkpoint 6 pass |
+| Redirect role | Berhasil | Checkpoint 6 pass |
+| Responsif halaman auth | Berhasil | Checkpoint 6 pass |
 | src/app | Belum terlihat | Belum sesuai struktur final dokumen |
 | public | Ada | Sesuai awal |
 | next.config.ts | Ada | Sesuai awal |
@@ -133,7 +145,7 @@ Branch: main
 | eslint.config.mjs | Ada | Sesuai awal |
 | postcss.config.mjs | Ada | Sesuai awal |
 | components | Belum terlihat | Belum sesuai struktur final |
-| lib | Belum terlihat | Belum sesuai struktur final |
+| lib | Ada jika digunakan untuk API helper | Perlu dicek lagi pada checkpoint lanjutan |
 | types | Belum terlihat | Belum sesuai struktur final |
 
 ## Catatan Checkpoint 4 - Database Schema dan Admin Seed
@@ -182,6 +194,43 @@ Target checkpoint: Register, login, JWT, auth middleware, role middleware, auth 
 | Middleware role UMKM | Berhasil dites melalui /umkm/profile | Selesai |
 | Endpoint /admin/dashboard | Belum tersedia | Dicatat sebagai finding, bukan blocker checkpoint 5 |
 
+## Catatan Checkpoint 6 - Landing dan Auth Pages
+
+Tanggal pengecekan: 14 Mei 2026  
+Area: Frontend  
+Checkpoint: 6  
+Target checkpoint: Landing page, login page, register page, integrasi auth frontend, dan redirect role  
+
+| Item Testing | Hasil | Status |
+|---|---|---|
+| Frontend running | Berhasil | Selesai |
+| Landing page | Berhasil tampil | Selesai |
+| Navbar landing | Berhasil tampil | Selesai |
+| Hero section | Berhasil tampil | Selesai |
+| Section produk | Berhasil tampil | Selesai |
+| Section tren UMKM | Berhasil tampil | Selesai |
+| Section alur penggunaan | Berhasil tampil | Selesai |
+| Section manfaat | Berhasil tampil | Selesai |
+| Footer | Berhasil tampil | Selesai |
+| Login page | Berhasil tampil | Selesai |
+| Register page | Berhasil tampil | Selesai |
+| Endpoint login frontend | Sudah mengarah ke backend /api/auth/login | Selesai |
+| Endpoint register frontend | Sudah mengarah ke backend /api/auth/register | Selesai |
+| Register Mahasiswa dari frontend | Berhasil | Selesai |
+| Register UMKM dari frontend | Berhasil | Selesai |
+| Login Mahasiswa dari frontend | Berhasil | Selesai |
+| Login UMKM dari frontend | Berhasil | Selesai |
+| Login Admin dari frontend | Berhasil | Selesai |
+| Token setelah login | Tersimpan | Selesai |
+| Redirect Mahasiswa | Mengarah ke /mahasiswa/dashboard | Selesai |
+| Redirect UMKM | Mengarah ke /umkm/dashboard | Selesai |
+| Redirect Admin | Mengarah ke /admin/dashboard | Selesai |
+| Error handling login | Berjalan | Selesai |
+| Validasi register | Berjalan | Selesai |
+| Responsif halaman / | Aman | Selesai |
+| Responsif halaman /login | Aman | Selesai |
+| Responsif halaman /register | Aman | Selesai |
+
 ## Kesimpulan Pengecekan Awal
 
 Backend dan frontend sudah bisa running sebagai project default awal.
@@ -189,6 +238,8 @@ Backend dan frontend sudah bisa running sebagai project default awal.
 Checkpoint 4 backend sudah lolos testing karena Prisma validate, Prisma generate, migration, seed admin, dan pengecekan admin di database berhasil.
 
 Checkpoint 5 backend juga sudah lolos testing karena register, login, JWT, auth me, change password, dan middleware role berjalan sesuai hasil pengujian.
+
+Checkpoint 6 frontend sudah lolos testing karena landing page, login page, register page, integrasi auth frontend, redirect role, dan responsivitas halaman awal berhasil.
 
 Status saat ini:
 
@@ -199,7 +250,7 @@ Status saat ini:
 | Checkpoint 3 Frontend | Selesai untuk setup awal | Frontend bisa running |
 | Checkpoint 4 Database | PASS | Schema Prisma, migration, dan seed admin berhasil |
 | Checkpoint 5 Auth API | PASS | Register, login, JWT, auth me, change password, dan middleware role berhasil |
-| Checkpoint 6 Landing dan Auth Pages | Belum dites | Menunggu landing, login, dan register dari frontend |
+| Checkpoint 6 Landing dan Auth Pages | PASS | Landing, login, register, integrasi backend, redirect role, dan responsif berhasil |
 | Checkpoint 7 Profile dan Upload File API | Belum dites penuh | Route profile mulai tersedia, upload file perlu dites khusus |
 
 ## Catatan
