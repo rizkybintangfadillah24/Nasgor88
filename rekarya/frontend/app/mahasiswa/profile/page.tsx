@@ -1,10 +1,159 @@
 // app/mahasiswa/profile/page.tsx
+// Versi final: form dapat disimpan ke localStorage dan otomatis terisi kembali.
 
 "use client";
 
-import { mahasiswaProfile } from "@/lib/dummy-data";
+import { useEffect, useState } from "react";
+import { mahasiswaProfile } from "@/lib/dummy-data"; // Pastikan object ini tersedia. :contentReference[oaicite:0]{index=0}
+
+type ProfileForm = {
+  nama: string;
+  email: string;
+  phone: string;
+  rekening: string;
+  kampus: string;
+  jurusan: string;
+  prodi: string;
+  semester: string;
+  bio: string;
+  statusVerifikasi: string;
+};
+
+type PasswordForm = {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+};
+
+const STORAGE_KEY = "studentProfile";
 
 export default function MahasiswaProfilePage() {
+  const [form, setForm] = useState<ProfileForm>({
+    nama: mahasiswaProfile.nama || "",
+    email: mahasiswaProfile.email || "",
+    phone: mahasiswaProfile.phone || "",
+    rekening: mahasiswaProfile.rekening || "",
+    kampus: mahasiswaProfile.kampus || "",
+    jurusan: mahasiswaProfile.jurusan || "",
+    prodi: mahasiswaProfile.prodi || "",
+    semester: mahasiswaProfile.semester || "",
+    bio: mahasiswaProfile.bio || "",
+    statusVerifikasi:
+      mahasiswaProfile.statusVerifikasi || "Pending",
+  });
+
+  const [passwordForm, setPasswordForm] =
+    useState<PasswordForm>({
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    });
+
+  /* =========================================================
+     LOAD DATA DARI localStorage
+  ========================================================= */
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+
+        setForm((prev) => ({
+          ...prev,
+          ...parsed,
+        }));
+      } catch (error) {
+        console.error(
+          "Gagal membaca data profil dari localStorage:",
+          error
+        );
+      }
+    }
+  }, []);
+
+  /* =========================================================
+     HANDLE INPUT PROFILE
+  ========================================================= */
+  function handleProfileChange(
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement
+    >
+  ) {
+    const { name, value } = e.target;
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+
+  /* =========================================================
+     HANDLE INPUT PASSWORD
+  ========================================================= */
+  function handlePasswordChange(
+    e: React.ChangeEvent<HTMLInputElement>
+  ) {
+    const { name, value } = e.target;
+
+    setPasswordForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+
+  /* =========================================================
+     SIMPAN PROFIL
+  ========================================================= */
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    // Status verifikasi otomatis tetap Pending
+    const dataToSave = {
+      ...form,
+      statusVerifikasi: "Pending",
+    };
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(dataToSave)
+    );
+
+    setForm(dataToSave);
+
+    alert("Profil berhasil disimpan!");
+  }
+
+  /* =========================================================
+     SIMPAN PASSWORD (DEMO)
+  ========================================================= */
+  function handlePasswordSubmit() {
+    if (
+      !passwordForm.oldPassword ||
+      !passwordForm.newPassword ||
+      !passwordForm.confirmPassword
+    ) {
+      alert("Semua field password wajib diisi.");
+      return;
+    }
+
+    if (
+      passwordForm.newPassword !==
+      passwordForm.confirmPassword
+    ) {
+      alert("Konfirmasi password tidak cocok.");
+      return;
+    }
+
+    alert("Password berhasil diperbarui!");
+
+    setPasswordForm({
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    });
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -13,8 +162,8 @@ export default function MahasiswaProfilePage() {
           Profil Mahasiswa
         </h1>
         <p className="mt-2 text-slate-600">
-          Lengkapi seluruh data diri untuk proses verifikasi admin dan
-          meningkatkan kredibilitas profil Anda.
+          Lengkapi seluruh data diri untuk proses verifikasi
+          admin dan meningkatkan kredibilitas profil Anda.
         </p>
       </div>
 
@@ -22,12 +171,15 @@ export default function MahasiswaProfilePage() {
       <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
         <div className="flex items-start gap-3">
           <div className="text-2xl">⏳</div>
+
           <div>
             <h3 className="font-semibold text-amber-900">
-              Status Verifikasi: {mahasiswaProfile.statusVerifikasi}
+              Status Verifikasi: {form.statusVerifikasi}
             </h3>
+
             <p className="mt-1 text-sm text-amber-700">
-              Lengkapi data dan dokumen agar profil Anda dapat diverifikasi.
+              Lengkapi data dan dokumen agar profil Anda dapat
+              diverifikasi.
             </p>
           </div>
         </div>
@@ -35,7 +187,10 @@ export default function MahasiswaProfilePage() {
 
       {/* Card Utama */}
       <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-        <form className="space-y-10">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-10"
+        >
           {/* ================= DATA DIRI ================= */}
           <SectionHeader
             title="Data Diri"
@@ -45,23 +200,34 @@ export default function MahasiswaProfilePage() {
           <div className="grid gap-5 md:grid-cols-2">
             <InputField
               label="Nama Lengkap"
-              defaultValue={mahasiswaProfile.nama}
+              name="nama"
+              value={form.nama}
+              onChange={handleProfileChange}
               placeholder="Nama lengkap sesuai KTP/KTM"
             />
+
             <InputField
               label="Email"
+              name="email"
               type="email"
-              defaultValue={mahasiswaProfile.email}
+              value={form.email}
+              onChange={handleProfileChange}
               placeholder="Email aktif"
             />
+
             <InputField
               label="No. Kontak"
-              defaultValue={mahasiswaProfile.phone}
+              name="phone"
+              value={form.phone}
+              onChange={handleProfileChange}
               placeholder="Nomor HP aktif"
             />
+
             <InputField
               label="No. Rekening"
-              defaultValue={mahasiswaProfile.rekening}
+              name="rekening"
+              value={form.rekening}
+              onChange={handleProfileChange}
               placeholder="BNI - XXXXXXXX"
             />
           </div>
@@ -75,19 +241,30 @@ export default function MahasiswaProfilePage() {
           <div className="grid gap-5 md:grid-cols-2">
             <InputField
               label="Kampus"
-              defaultValue={mahasiswaProfile.kampus}
+              name="kampus"
+              value={form.kampus}
+              onChange={handleProfileChange}
             />
+
             <InputField
               label="Jurusan"
-              defaultValue={mahasiswaProfile.jurusan}
+              name="jurusan"
+              value={form.jurusan}
+              onChange={handleProfileChange}
             />
+
             <InputField
               label="Program Studi"
-              defaultValue={mahasiswaProfile.prodi}
+              name="prodi"
+              value={form.prodi}
+              onChange={handleProfileChange}
             />
+
             <InputField
               label="Semester / Tahun Lulus"
-              defaultValue={mahasiswaProfile.semester}
+              name="semester"
+              value={form.semester}
+              onChange={handleProfileChange}
               placeholder="Semester aktif atau tahun lulus"
             />
           </div>
@@ -102,9 +279,12 @@ export default function MahasiswaProfilePage() {
             <label className="mb-2 block text-sm font-medium text-slate-700">
               Deskripsi Singkat
             </label>
+
             <textarea
+              name="bio"
               rows={5}
-              defaultValue={mahasiswaProfile.bio}
+              value={form.bio}
+              onChange={handleProfileChange}
               placeholder="Saya seorang web developer yang fokus pada solusi digital untuk UMKM."
               className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
             />
@@ -121,10 +301,12 @@ export default function MahasiswaProfilePage() {
               label="Foto Profil"
               description="Foto wajah terlihat jelas."
             />
+
             <UploadField
               label="KTM / Surat Aktif Kuliah"
               description="Dokumen harus terlihat jelas."
             />
+
             <UploadField
               label="KTP"
               description="KTP harus terlihat jelas."
@@ -155,17 +337,28 @@ export default function MahasiswaProfilePage() {
             <div className="grid gap-5">
               <InputField
                 label="Password Lama"
+                name="oldPassword"
                 type="password"
+                value={passwordForm.oldPassword}
+                onChange={handlePasswordChange}
                 placeholder="Masukkan password lama"
               />
+
               <InputField
                 label="Password Baru"
+                name="newPassword"
                 type="password"
+                value={passwordForm.newPassword}
+                onChange={handlePasswordChange}
                 placeholder="Masukkan password baru"
               />
+
               <InputField
                 label="Ulangi Password Baru"
+                name="confirmPassword"
                 type="password"
+                value={passwordForm.confirmPassword}
+                onChange={handlePasswordChange}
                 placeholder="Konfirmasi password baru"
               />
             </div>
@@ -173,6 +366,7 @@ export default function MahasiswaProfilePage() {
             <div className="mt-6">
               <button
                 type="button"
+                onClick={handlePasswordSubmit}
                 className="rounded-xl bg-emerald-600 px-8 py-3 font-semibold text-white shadow-md transition hover:bg-emerald-700"
               >
                 Simpan Password
@@ -198,20 +392,30 @@ function SectionHeader({
 }) {
   return (
     <div className="border-b border-slate-200 pb-3">
-      <h2 className="text-2xl font-bold text-slate-900">{title}</h2>
-      <p className="mt-1 text-sm text-slate-500">{description}</p>
+      <h2 className="text-2xl font-bold text-slate-900">
+        {title}
+      </h2>
+      <p className="mt-1 text-sm text-slate-500">
+        {description}
+      </p>
     </div>
   );
 }
 
 function InputField({
   label,
-  defaultValue,
+  name,
+  value,
+  onChange,
   placeholder,
   type = "text",
 }: {
   label: string;
-  defaultValue?: string;
+  name: string;
+  value: string;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => void;
   placeholder?: string;
   type?: string;
 }) {
@@ -223,7 +427,9 @@ function InputField({
 
       <input
         type={type}
-        defaultValue={defaultValue}
+        name={name}
+        value={value}
+        onChange={onChange}
         placeholder={placeholder}
         className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
       />
