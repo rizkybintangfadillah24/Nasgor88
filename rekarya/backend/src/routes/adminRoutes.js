@@ -2,6 +2,7 @@ const express = require("express");
 const {
   getPendingProducts,
   verifyProduct,
+  updateTransactionStatus,
 } = require("../controllers/adminController");
 const { authMiddleware, roleMiddleware } = require("../middleware/authMiddleware");
 
@@ -19,6 +20,13 @@ router.put(
   authMiddleware,
   roleMiddleware("ADMIN"),
   verifyProduct
+);
+
+router.put(
+  "/transactions/:id/status",
+  authMiddleware,
+  roleMiddleware("ADMIN"),
+  updateTransactionStatus
 );
 
 module.exports = router;

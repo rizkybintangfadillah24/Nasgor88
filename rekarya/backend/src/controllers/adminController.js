@@ -99,7 +99,69 @@ const verifyProduct = async (req, res) => {
   }
 };
 
+const updateTransactionStatus = async (req, res) => {
+  try {
+    const transactionId = Number(req.params.id);
+    const { status } = req.body;
+
+    if (Number.isNaN(transactionId)) {
+      return errorResponse(res, "ID transaksi tidak valid", [], 400);
+    }
+
+    const allowedStatus = ["UNPAID", "REVIEW", "PAID"];
+
+    if (!allowedStatus.includes(status)) {
+      return errorResponse(res, "Status transaksi hanya boleh UNPAID, REVIEW, atau PAID", [], 400);
+    }
+
+    const transaction = await prisma.transaction.findUnique({
+      where: {
+        id: transactionId,
+      },
+    });
+
+    if (!transaction) {
+      return errorResponse(res, "Transaksi tidak ditemukan", [], 404);
+    }
+
+    const updatedTransaction = await prisma.transaction.update({
+      where: {
+        id: transactionId,
+      },
+      data: {
+        status,
+      },
+      include: {
+        collaboration: {
+          include: {
+            product: true,
+          },
+        },
+        umkm: {
+          select: {
+            id: true,
+            username: true,
+            email: true,
+          },
+        },
+        mahasiswa: {
+          select: {
+            id: true,
+            username: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    return successResponse(res, "Status transaksi berhasil diperbarui", updatedTransaction);
+  } catch (error) {
+    return errorResponse(res, "Gagal memperbarui status transaksi", [error.message], 500);
+  }
+};
+
 module.exports = {
   getPendingProducts,
   verifyProduct,
+  updateTransactionStatus,
 };

@@ -8,6 +8,11 @@ const mahasiswaProfileRoutes = require("./routes/mahasiswaProfileRoutes");
 const umkmProfileRoutes = require("./routes/umkmProfileRoutes");
 const productRoutes = require("./routes/productRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const matchRoutes = require("./routes/matchRoutes");
+const collaborationRoutes = require("./routes/collaborationRoutes");
+const transactionRoutes = require("./routes/transactionRoutes");
+const mentoringRoutes = require("./routes/mentoringRoutes");
+const reviewRoutes = require("./routes/reviewRoutes");
 
 dotenv.config();
 
@@ -47,12 +52,17 @@ app.use("/api/mahasiswa", mahasiswaProfileRoutes);
 app.use("/api/umkm", umkmProfileRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/matches", matchRoutes);
+app.use("/api/collaborations", collaborationRoutes);
+app.use("/api/transactions", transactionRoutes);
+app.use("/api/mentoring", mentoringRoutes);
+app.use("/api/reviews", reviewRoutes);
 
 app.use((err, req, res, next) => {
   if (err) {
     return res.status(400).json({
       success: false,
-      message: err.message || "Terjadi kesalahan upload file",
+      message: err.message || "Terjadi kesalahan",
       errors: [err.message],
     });
   }
