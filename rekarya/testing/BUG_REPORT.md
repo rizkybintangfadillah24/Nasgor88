@@ -36,7 +36,7 @@ Dokumen ini digunakan untuk mencatat semua bug, finding, dan catatan hasil testi
 | FIND-001 | 14 Mei 2026 | Backend | Backend sudah bisa running default awal | Setup awal backend bisa dijalankan | Info | Closed | Backend | Tidak termasuk bug |
 | FIND-002 | 14 Mei 2026 | Frontend | Frontend sudah bisa running default awal | Setup awal frontend bisa dijalankan | Info | Closed | Frontend | Tidak termasuk bug |
 | FIND-003 | 14 Mei 2026 | Backend | Struktur src backend mulai dilengkapi | Backend sudah memiliki config, controllers, middleware, routes, dan utils | Info | Closed | Backend | Struktur sudah berkembang setelah update backend |
-| FIND-004 | 14 Mei 2026 | Backend | Folder uploads belum dites penuh | Upload file Multer belum divalidasi penuh | Medium | Open | Backend/Testing | Perlu dites pada checkpoint upload file |
+| FIND-004 | 14 Mei 2026 | Backend | Folder upload sudah digunakan untuk profile upload | Upload file profile berhasil divalidasi | Info | Closed | Backend/Testing | Selesai pada Checkpoint 7 |
 | FIND-005 | 14 Mei 2026 | Backend | prisma/seed.js tersedia dan seed admin berhasil | Akun admin demo sudah tersedia di database lokal | Info | Closed | Backend | Selesai pada Checkpoint 4 |
 | FIND-006 | 14 Mei 2026 | Backend | schema.prisma berhasil divalidasi | Model database dapat digunakan oleh Prisma | Info | Closed | Backend | Prisma validate berhasil |
 | FIND-007 | 14 Mei 2026 | Frontend | Struktur frontend memakai app, bukan src/app | Tidak sesuai struktur final dokumen | Medium | Open | Frontend | Perlu konfirmasi apakah akan dipindah ke src/app |
@@ -99,6 +99,27 @@ Dokumen ini digunakan untuk mencatat semua bug, finding, dan catatan hasil testi
 | FIND-CP6-014 | 14 Mei 2026 | Frontend Auth | Error handling login dan register berjalan | User mendapat pesan error saat input salah | Info | Closed | Frontend | PASS |
 | FIND-CP6-015 | 14 Mei 2026 | Frontend Auth | Token tersimpan setelah login | Sesi login bisa digunakan untuk fitur berikutnya | Info | Closed | Frontend | PASS |
 | FIND-CP6-016 | 14 Mei 2026 | Frontend Responsif | Landing, login, dan register responsif | Tampilan aman pada mobile/tablet/desktop | Info | Closed | Frontend | PASS |
+
+## Finding Checkpoint 7 - Profile dan Upload File API
+
+| ID | Tanggal | Area | Temuan | Dampak | Severity | Status | PIC | Catatan |
+|---|---|---|---|---|---|---|---|---|
+| FIND-CP7-001 | 14 Mei 2026 | Auth | Login Mahasiswa CP7 berhasil | Token Mahasiswa tersedia untuk test profile | Info | Closed | Backend | PASS |
+| FIND-CP7-002 | 14 Mei 2026 | Auth | Login UMKM CP7 berhasil | Token UMKM tersedia untuk test profile | Info | Closed | Backend | PASS |
+| FIND-CP7-003 | 14 Mei 2026 | Mahasiswa Profile | GET profile Mahasiswa berhasil | Data profile Mahasiswa dapat diambil | Info | Closed | Backend | PASS |
+| FIND-CP7-004 | 14 Mei 2026 | Mahasiswa Profile | PUT profile Mahasiswa tanpa file berhasil | Data text profile Mahasiswa tersimpan | Info | Closed | Backend | PASS |
+| FIND-CP7-005 | 14 Mei 2026 | Mahasiswa Profile | PUT profile Mahasiswa dengan file berhasil | Data profile dan file Mahasiswa tersimpan | Info | Closed | Backend | PASS |
+| FIND-CP7-006 | 14 Mei 2026 | Upload File | Upload photo berhasil | Foto profile Mahasiswa tersimpan | Info | Closed | Backend | PASS |
+| FIND-CP7-007 | 14 Mei 2026 | Upload File | Upload studentCard berhasil | File KTM/surat aktif Mahasiswa tersimpan | Info | Closed | Backend | PASS |
+| FIND-CP7-008 | 14 Mei 2026 | Upload File | Upload identityCard berhasil | File KTP Mahasiswa tersimpan | Info | Closed | Backend | PASS |
+| FIND-CP7-009 | 14 Mei 2026 | Upload File | File upload tersimpan di folder upload | File fisik tersedia di folder backend | Info | Closed | Backend | PASS |
+| FIND-CP7-010 | 14 Mei 2026 | Database | Path file tersimpan di database | Database menyimpan path file, bukan binary | Info | Closed | Backend | PASS |
+| FIND-CP7-011 | 14 Mei 2026 | Role Protection | UMKM ditolak saat akses profile Mahasiswa | Data profile Mahasiswa terlindungi | Info | Closed | Backend | PASS |
+| FIND-CP7-012 | 14 Mei 2026 | UMKM Profile | GET profile UMKM berhasil | Data profile UMKM dapat diambil | Info | Closed | Backend | PASS |
+| FIND-CP7-013 | 14 Mei 2026 | UMKM Profile | PUT profile UMKM berhasil | Data usaha UMKM tersimpan | Info | Closed | Backend | PASS |
+| FIND-CP7-014 | 14 Mei 2026 | Role Protection | Mahasiswa ditolak saat akses profile UMKM | Data profile UMKM terlindungi | Info | Closed | Backend | PASS |
+| FIND-CP7-015 | 14 Mei 2026 | Auth Protection | Endpoint profile tanpa token ditolak | Endpoint profile terlindungi auth middleware | Info | Closed | Backend | PASS |
+| FIND-CP7-016 | 14 Mei 2026 | Checkpoint 7 | Profile dan upload file API selesai dites | Backend siap lanjut checkpoint berikutnya | Info | Closed | Backend/Testing | PASS |
 
 ## Bug Detail
 

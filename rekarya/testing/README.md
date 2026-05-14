@@ -76,11 +76,16 @@ Testing berfokus pada:
 | Register frontend | Selesai |
 | Redirect role frontend | Selesai |
 | Responsivitas checkpoint 6 | Selesai |
-| Mahasiswa | Belum dites penuh |
-| UMKM | Belum dites penuh |
-| Admin | Belum dites penuh |
+| Profile Mahasiswa API | Selesai |
+| Upload file profil Mahasiswa | Selesai |
+| Profile UMKM API | Selesai |
+| Role protection profile | Selesai |
+| Upload File | Selesai untuk profile Mahasiswa |
+| Mahasiswa dashboard | Belum dites penuh |
+| UMKM dashboard | Belum dites penuh |
+| Admin dashboard | Belum dites penuh |
+| Produk | Belum dites |
 | ReKarya Match | Belum dites |
-| Upload File | Belum dites |
 | Demo Final | Belum dites penuh |
 
 ## Catatan Pengecekan Struktur Awal
@@ -112,14 +117,19 @@ Branch: main
 | Auth middleware | Ada | Checkpoint 5 pass |
 | Role middleware | Ada | Checkpoint 5 pass |
 | Admin route untuk role test | Ada melalui /admin/products/pending | Checkpoint 5 pass |
-| Mahasiswa route untuk role test | Ada melalui /mahasiswa/profile | Checkpoint 5 pass |
-| UMKM route untuk role test | Ada melalui /umkm/profile | Checkpoint 5 pass |
+| Mahasiswa route untuk role test | Ada melalui /mahasiswa/profile | Checkpoint 5 dan 7 pass |
+| UMKM route untuk role test | Ada melalui /umkm/profile | Checkpoint 5 dan 7 pass |
+| Profile Mahasiswa API | Berhasil dites | Checkpoint 7 pass |
+| Upload file profil Mahasiswa | Berhasil dites | Checkpoint 7 pass |
+| Profile UMKM API | Berhasil dites | Checkpoint 7 pass |
+| Path file upload | Tersimpan di database | Checkpoint 7 pass |
+| File upload | Tersimpan di folder upload | Checkpoint 7 pass |
 | src/config | Ada | Mulai sesuai struktur backend |
 | src/controllers | Ada | Mulai sesuai struktur backend |
 | src/middleware | Ada | Mulai sesuai struktur backend |
 | src/routes | Ada | Mulai sesuai struktur backend |
 | src/utils | Ada | Mulai sesuai struktur backend |
-| src/uploads | Perlu dicek pada checkpoint upload file | Belum dites penuh |
+| src/uploads / uploads | Sudah digunakan untuk upload profile | Checkpoint 7 pass |
 
 ### Frontend
 
@@ -231,15 +241,44 @@ Target checkpoint: Landing page, login page, register page, integrasi auth front
 | Responsif halaman /login | Aman | Selesai |
 | Responsif halaman /register | Aman | Selesai |
 
+## Catatan Checkpoint 7 - Profile dan Upload File API
+
+Tanggal pengecekan: 14 Mei 2026  
+Area: Backend  
+Checkpoint: 7  
+Target checkpoint: Profile Mahasiswa, upload file Mahasiswa, Profile UMKM, role protection, dan path file upload  
+
+| Item Testing | Hasil | Status |
+|---|---|---|
+| Login Mahasiswa CP7 untuk token | Berhasil | Selesai |
+| Login UMKM CP7 untuk token | Berhasil | Selesai |
+| GET profile Mahasiswa | Berhasil | Selesai |
+| PUT profile Mahasiswa tanpa file | Berhasil | Selesai |
+| PUT profile Mahasiswa dengan file | Berhasil | Selesai |
+| Upload photo Mahasiswa | Berhasil | Selesai |
+| Upload studentCard Mahasiswa | Berhasil | Selesai |
+| Upload identityCard Mahasiswa | Berhasil | Selesai |
+| File upload tersimpan di folder upload | Berhasil | Selesai |
+| Path file tersimpan di database | Berhasil | Selesai |
+| Database menyimpan path, bukan binary | Berhasil | Selesai |
+| UMKM akses profile Mahasiswa | Ditolak | Selesai |
+| GET profile UMKM | Berhasil | Selesai |
+| PUT profile UMKM | Berhasil | Selesai |
+| Mahasiswa akses profile UMKM | Ditolak | Selesai |
+| Endpoint profile tanpa token | Ditolak | Selesai |
+| Checkpoint 7 | PASS | Selesai |
+
 ## Kesimpulan Pengecekan Awal
 
-Backend dan frontend sudah bisa running sebagai project default awal.
+Backend dan frontend sudah bisa running.
 
 Checkpoint 4 backend sudah lolos testing karena Prisma validate, Prisma generate, migration, seed admin, dan pengecekan admin di database berhasil.
 
 Checkpoint 5 backend juga sudah lolos testing karena register, login, JWT, auth me, change password, dan middleware role berjalan sesuai hasil pengujian.
 
 Checkpoint 6 frontend sudah lolos testing karena landing page, login page, register page, integrasi auth frontend, redirect role, dan responsivitas halaman awal berhasil.
+
+Checkpoint 7 backend sudah lolos testing karena profile Mahasiswa, upload file Mahasiswa, profile UMKM, role protection, dan penyimpanan path file berhasil.
 
 Status saat ini:
 
@@ -251,7 +290,9 @@ Status saat ini:
 | Checkpoint 4 Database | PASS | Schema Prisma, migration, dan seed admin berhasil |
 | Checkpoint 5 Auth API | PASS | Register, login, JWT, auth me, change password, dan middleware role berhasil |
 | Checkpoint 6 Landing dan Auth Pages | PASS | Landing, login, register, integrasi backend, redirect role, dan responsif berhasil |
-| Checkpoint 7 Profile dan Upload File API | Belum dites penuh | Route profile mulai tersedia, upload file perlu dites khusus |
+| Checkpoint 7 Profile dan Upload File API | PASS | Profile Mahasiswa, upload file, profile UMKM, dan role protection berhasil |
+| Checkpoint 8 Dashboard Mahasiswa | Belum dites | Menunggu frontend dashboard Mahasiswa |
+| Checkpoint 9 Product dan Verification API | Belum dites penuh | Menunggu testing produk dan verifikasi admin |
 
 ## Catatan
 
