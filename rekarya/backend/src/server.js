@@ -3,6 +3,8 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
 
+const authRoutes = require("./routes/authRoutes");
+
 dotenv.config();
 
 const app = express();
@@ -21,8 +23,8 @@ app.get("/", (req, res) => {
     message: "ReKarya Backend API berjalan",
     data: {
       service: "ReKarya Backend",
-      version: "1.0.0"
-    }
+      version: "1.0.0",
+    },
   });
 });
 
@@ -31,16 +33,30 @@ app.get("/api/health", (req, res) => {
     success: true,
     message: "Server backend aktif",
     data: {
-      status: "OK"
-    }
+      status: "OK",
+    },
   });
+});
+
+app.use("/api/auth", authRoutes);
+
+app.use((err, req, res, next) => {
+  if (err) {
+    return res.status(400).json({
+      success: false,
+      message: err.message || "Terjadi kesalahan",
+      errors: [err.message],
+    });
+  }
+
+  next();
 });
 
 app.use((req, res) => {
   return res.status(404).json({
     success: false,
     message: "Endpoint tidak ditemukan",
-    errors: []
+    errors: [],
   });
 });
 
