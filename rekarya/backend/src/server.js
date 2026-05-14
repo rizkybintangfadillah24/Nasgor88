@@ -12,6 +12,9 @@ const matchRoutes = require("./routes/matchRoutes");
 const demoRequestRoutes = require("./routes/demoRequestRoutes");
 const collaborationRoutes = require("./routes/collaborationRoutes");
 const offerRoutes = require("./routes/offerRoutes");
+const transactionRoutes = require("./routes/transactionRoutes");
+const mentoringRoutes = require("./routes/mentoringRoutes");
+const reviewRoutes = require("./routes/reviewRoutes");
 
 dotenv.config();
 
@@ -55,6 +58,9 @@ app.use("/api/matches", matchRoutes);
 app.use("/api/demo-requests", demoRequestRoutes);
 app.use("/api/collaborations", collaborationRoutes);
 app.use("/api/offers", offerRoutes);
+app.use("/api/transactions", transactionRoutes);
+app.use("/api/mentoring", mentoringRoutes);
+app.use("/api/reviews", reviewRoutes);
 
 app.use((err, req, res, next) => {
   if (err) {
