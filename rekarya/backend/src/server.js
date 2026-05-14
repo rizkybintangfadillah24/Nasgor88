@@ -4,6 +4,8 @@ const dotenv = require("dotenv");
 const path = require("path");
 
 const authRoutes = require("./routes/authRoutes");
+const mahasiswaProfileRoutes = require("./routes/mahasiswaProfileRoutes");
+const umkmProfileRoutes = require("./routes/umkmProfileRoutes");
 
 dotenv.config();
 
@@ -39,6 +41,20 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/mahasiswa", mahasiswaProfileRoutes);
+app.use("/api/umkm", umkmProfileRoutes);
+
+app.use((err, req, res, next) => {
+  if (err) {
+    return res.status(400).json({
+      success: false,
+      message: err.message || "Terjadi kesalahan upload file",
+      errors: [err.message],
+    });
+  }
+
+  next();
+});
 
 app.use((req, res) => {
   return res.status(404).json({
