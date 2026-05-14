@@ -10,7 +10,7 @@ Checklist ini digunakan untuk memastikan seluruh fitur ReKarya berjalan sesuai d
 | 2 | Register UMKM | Isi form register dengan role UMKM | Akun UMKM berhasil dibuat | Belum | Menunggu halaman dan endpoint |
 | 3 | Login Mahasiswa | Login memakai akun Mahasiswa | Redirect ke dashboard Mahasiswa | Belum | Menunggu halaman dan endpoint |
 | 4 | Login UMKM | Login memakai akun UMKM | Redirect ke dashboard UMKM | Belum | Menunggu halaman dan endpoint |
-| 5 | Login Admin | Login memakai akun Admin | Redirect ke dashboard Admin | Belum | Menunggu seed admin dan endpoint |
+| 5 | Login Admin | Login memakai akun Admin | Redirect ke dashboard Admin | Belum | Seed admin sudah ada, menunggu endpoint auth |
 | 6 | Login password salah | Masukkan password salah | Sistem menampilkan pesan error | Belum | Menunggu endpoint auth |
 | 7 | Akses tanpa token | Buka dashboard tanpa login | Sistem menolak akses | Belum | Menunggu middleware auth |
 | 8 | Akses beda role | Mahasiswa membuka halaman Admin | Sistem menolak akses | Belum | Menunggu middleware role |
@@ -27,7 +27,7 @@ Checklist ini digunakan untuk memastikan seluruh fitur ReKarya berjalan sesuai d
 | 4 | Upload KTM/surat aktif kuliah | Upload JPG/PNG/PDF | File tersimpan | Belum | Menunggu Multer |
 | 5 | Upload KTP | Upload JPG/PNG/PDF | File tersimpan | Belum | Menunggu Multer |
 | 6 | Upload produk | Isi form produk dan upload screenshot | Produk berhasil dibuat | Belum | Menunggu endpoint dan halaman |
-| 7 | Status produk baru | Cek produk setelah upload | Status produk PENDING | Belum | Menunggu database model |
+| 7 | Status produk baru | Cek produk setelah upload | Status produk PENDING | Belum | Database model sudah siap, menunggu endpoint produk |
 | 8 | Edit produk sendiri | Edit data produk milik sendiri | Produk berhasil diperbarui | Belum | Menunggu endpoint |
 | 9 | Hapus produk sendiri | Hapus produk milik sendiri | Produk berhasil dihapus | Belum | Menunggu endpoint |
 | 10 | Lihat kerja sama | Buka menu kerja sama | List kerja sama tampil | Belum | Menunggu endpoint dan halaman |
@@ -64,7 +64,7 @@ Checklist ini digunakan untuk memastikan seluruh fitur ReKarya berjalan sesuai d
 
 | No | Test Case | Langkah Testing | Hasil yang Diharapkan | Status | Catatan |
 |---|---|---|---|---|---|
-| 1 | Dashboard Admin | Login sebagai Admin | Dashboard Admin tampil | Belum | Menunggu seed dan halaman |
+| 1 | Dashboard Admin | Login sebagai Admin | Dashboard Admin tampil | Belum | Seed admin sudah ada, menunggu endpoint dan halaman |
 | 2 | Verifikasi akun | Buka akun pending | Akun bisa disetujui/ditolak | Belum | Menunggu endpoint |
 | 3 | Lihat produk pending | Buka menu produk pending | Produk pending tampil | Belum | Menunggu endpoint |
 | 4 | Approve produk | Setujui produk Mahasiswa | Status menjadi APPROVED | Belum | Menunggu endpoint |
@@ -108,7 +108,7 @@ Checklist ini digunakan untuk memastikan seluruh fitur ReKarya berjalan sesuai d
 | 5 | Upload screenshot produk JPG | Upload screenshot JPG | Berhasil | Belum | Menunggu Multer |
 | 6 | Upload file lebih dari 2 MB | Upload file besar | Ditolak | Belum | Menunggu validasi upload |
 | 7 | Upload format tidak valid | Upload file selain format izin | Ditolak | Belum | Menunggu validasi upload |
-| 8 | Path file tersimpan | Cek database | Path file tersimpan, bukan binary | Belum | Menunggu database model |
+| 8 | Path file tersimpan | Cek database | Path file tersimpan, bukan binary | Belum | Menunggu endpoint upload |
 
 ## 7. Responsivitas
 
@@ -130,7 +130,7 @@ Checklist ini digunakan untuk memastikan seluruh fitur ReKarya berjalan sesuai d
 |---|---|---|---|---|---|---|
 | 1 | Backend | Folder backend tersedia | Folder backend ada | Ada | Selesai | Sesuai setup awal |
 | 2 | Backend | File package.json tersedia | package.json ada | Ada | Selesai | Perlu cek dependency detail jika ada perubahan |
-| 3 | Backend | Prisma tersedia | Folder prisma dan schema.prisma ada | Ada | Selesai | Perlu cek isi model |
+| 3 | Backend | Prisma tersedia | Folder prisma dan schema.prisma ada | Ada | Selesai | Schema sudah bisa divalidasi |
 | 4 | Backend | Server utama tersedia | src/server.js ada | Ada | Selesai | Server dasar tersedia |
 | 5 | Backend | Backend bisa running | Backend berjalan tanpa error awal | Bisa running | Selesai | Running masih default awal |
 | 6 | Backend | Folder config tersedia | src/config ada | Belum terlihat | Belum | Perlu dilengkapi backend |
@@ -140,7 +140,7 @@ Checklist ini digunakan untuk memastikan seluruh fitur ReKarya berjalan sesuai d
 | 10 | Backend | Folder services tersedia | src/services ada | Belum terlihat | Belum | Perlu dilengkapi backend |
 | 11 | Backend | Folder utils tersedia | src/utils ada | Belum terlihat | Belum | Perlu dilengkapi backend |
 | 12 | Backend | Folder uploads tersedia | src/uploads ada | Belum terlihat | Belum | Perlu untuk Multer |
-| 13 | Backend | Seed admin tersedia | prisma/seed.js ada | Belum terlihat | Belum | Perlu untuk login admin |
+| 13 | Backend | Seed admin tersedia | prisma/seed.js ada dan bisa dijalankan | Ada dan berhasil | Selesai | Admin seed berhasil |
 | 14 | Frontend | Folder frontend tersedia | Folder frontend ada | Ada | Selesai | Sesuai setup awal |
 | 15 | Frontend | Next config tersedia | next.config.ts ada | Ada | Selesai | Sesuai |
 | 16 | Frontend | TypeScript config tersedia | tsconfig.json ada | Ada | Selesai | Sesuai |
@@ -151,12 +151,27 @@ Checklist ini digunakan untuk memastikan seluruh fitur ReKarya berjalan sesuai d
 | 21 | Frontend | Folder lib tersedia | lib ada | Belum terlihat | Belum | Perlu untuk API/helper |
 | 22 | Frontend | Folder types tersedia | types ada | Belum terlihat | Belum | Perlu untuk TypeScript type |
 
-## 9. Status Akhir Testing Saat Ini
+## 9. Checklist Checkpoint 4 - Database Schema dan Admin Seed
+
+| No | Area | Test Case | Hasil yang Diharapkan | Hasil Cek Saat Ini | Status | Catatan |
+|---|---|---|---|---|---|---|
+| 1 | Database | File .env lokal backend | DATABASE_URL tersedia dan terbaca | Berhasil | Selesai | .env tidak boleh di-push |
+| 2 | Database | Prisma validate | Schema valid | Berhasil | Selesai | Error DATABASE_URL sudah selesai |
+| 3 | Database | Prisma generate | Prisma Client berhasil dibuat | Berhasil | Selesai | Prisma Client generated |
+| 4 | Database | Migration | Migration berhasil jalan | Berhasil | Selesai | Database berhasil sinkron |
+| 5 | Database | Folder migrations | Folder migrations tersedia | Ada | Selesai | Hasil migration tersedia |
+| 6 | Database | Seed admin | Seed admin berhasil dijalankan | Berhasil | Selesai | Akun admin dibuat |
+| 7 | Database | Admin di database | User role ADMIN tersedia | Ada | Selesai | Dicek lewat Prisma Studio |
+| 8 | Database | Password admin | Password tidak plain text | Hash | Selesai | Sesuai keamanan dasar |
+| 9 | Database | Status checkpoint 4 | Semua target checkpoint 4 selesai | PASS | Selesai | Siap lanjut checkpoint 5 |
+
+## 10. Status Akhir Testing Saat Ini
 
 | Area | Status Akhir |
 |---|---|
 | Backend running awal | Selesai |
 | Frontend running awal | Selesai |
+| Checkpoint 4 Database | PASS |
 | Auth | Belum selesai |
 | Mahasiswa | Belum selesai |
 | UMKM | Belum selesai |
@@ -164,18 +179,18 @@ Checklist ini digunakan untuk memastikan seluruh fitur ReKarya berjalan sesuai d
 | ReKarya Match | Belum selesai |
 | Upload File | Belum selesai |
 | Responsivitas | Belum selesai |
-| Demo Final | Belum selesai |
+| Demo Final | Belum selesai penuh |
 
-## 10. Kesimpulan Testing Sementara
+## 11. Kesimpulan Testing Sementara
 
 Backend dan frontend sudah berhasil running sebagai project default awal.
 
-Namun testing fitur belum dapat dilakukan penuh karena halaman, endpoint, schema database, seed admin, dan fitur utama ReKarya belum lengkap.
+Checkpoint 4 backend sudah dinyatakan PASS karena schema Prisma valid, Prisma generate berhasil, migration berhasil, seed admin berhasil, dan admin sudah ada di database.
 
 Keputusan testing saat ini:
 
 | Area | Keputusan |
 |---|---|
-| Backend | Boleh lanjut ke struktur folder, schema Prisma, seed admin, dan auth |
-| Frontend | Boleh lanjut ke landing page, login, register, dan struktur src/app sesuai dokumen |
-| Testing | Melanjutkan pencatatan checkpoint dan menunggu fitur siap dites |
+| Backend | Boleh lanjut ke Checkpoint 5 Authentication API |
+| Frontend | Tetap menunggu landing page, login, register, dan struktur sesuai dokumen |
+| Testing | Melanjutkan pencatatan checkpoint dan menunggu fitur auth siap dites |

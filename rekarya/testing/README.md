@@ -39,6 +39,7 @@ Testing berfokus pada:
 6. Testing wajib melakukan git pull sebelum menambahkan dokumen baru.
 7. Testing hanya push saat gilirannya.
 8. Testing tidak melakukan force push.
+9. File .env lokal tidak boleh di-push ke GitHub.
 
 ## Dokumen Testing
 
@@ -52,8 +53,13 @@ Testing berfokus pada:
 
 | Area | Status |
 |---|---|
-| Backend running awal | Bisa running |
-| Frontend running awal | Bisa running |
+| Backend running awal | Selesai |
+| Frontend running awal | Selesai |
+| Database schema | Selesai |
+| Prisma validate | Selesai |
+| Prisma generate | Selesai |
+| Migration database | Selesai |
+| Seed admin | Selesai |
 | Auth | Belum dites |
 | Mahasiswa | Belum dites |
 | UMKM | Belum dites |
@@ -61,7 +67,7 @@ Testing berfokus pada:
 | ReKarya Match | Belum dites |
 | Upload File | Belum dites |
 | Responsivitas | Belum dites |
-| Demo Final | Belum dites |
+| Demo Final | Belum dites penuh |
 
 ## Catatan Pengecekan Struktur Awal
 
@@ -77,17 +83,23 @@ Branch: main
 | package.json | Ada | Sesuai awal |
 | package-lock.json | Ada | Sesuai awal |
 | node_modules | Ada | Dependency sudah pernah di-install |
-| prisma/schema.prisma | Ada | Perlu dicek isi model ReKarya |
-| prisma/seed.js | Belum terlihat | Belum sesuai kebutuhan seed admin |
+| prisma/schema.prisma | Ada | Sudah bisa divalidasi |
+| prisma/seed.js | Ada dan berhasil dijalankan | Sesuai checkpoint 4 |
 | src/server.js | Ada | Server dasar tersedia |
 | Backend running | Bisa running | Sesuai checkpoint awal |
-| src/config | Belum terlihat | Belum sesuai struktur final |
-| src/controllers | Belum terlihat | Belum sesuai struktur final |
-| src/middleware | Belum terlihat | Belum sesuai struktur final |
-| src/routes | Belum terlihat | Belum sesuai struktur final |
-| src/services | Belum terlihat | Belum sesuai struktur final |
-| src/utils | Belum terlihat | Belum sesuai struktur final |
-| src/uploads | Belum terlihat | Belum sesuai kebutuhan upload file |
+| DATABASE_URL | Sudah terbaca dari .env lokal | Sesuai kebutuhan Prisma |
+| Prisma validate | Berhasil | Checkpoint 4 pass |
+| Prisma generate | Berhasil | Checkpoint 4 pass |
+| Prisma migration | Berhasil | Checkpoint 4 pass |
+| Seed admin | Berhasil | Checkpoint 4 pass |
+| Admin di database | Ada | Checkpoint 4 pass |
+| src/config | Belum terlihat | Perlu dicek pada checkpoint berikutnya |
+| src/controllers | Belum terlihat | Perlu dicek pada checkpoint berikutnya |
+| src/middleware | Belum terlihat | Perlu dicek pada checkpoint berikutnya |
+| src/routes | Belum terlihat | Perlu dicek pada checkpoint berikutnya |
+| src/services | Belum terlihat | Perlu dicek pada checkpoint berikutnya |
+| src/utils | Belum terlihat | Perlu dicek pada checkpoint berikutnya |
+| src/uploads | Belum terlihat | Perlu dicek pada checkpoint upload file |
 
 ### Frontend
 
@@ -109,22 +121,39 @@ Branch: main
 | lib | Belum terlihat | Belum sesuai struktur final |
 | types | Belum terlihat | Belum sesuai struktur final |
 
+## Catatan Checkpoint 4 - Database Schema dan Admin Seed
+
+Tanggal pengecekan: 14 Mei 2026  
+Area: Backend  
+Checkpoint: 4  
+Target checkpoint: Schema Prisma, migration, dan seed admin  
+
+| Item Testing | Hasil | Status |
+|---|---|---|
+| File .env lokal tersedia | DATABASE_URL sudah terbaca | Selesai |
+| Prisma validate | Berhasil | Selesai |
+| Prisma generate | Berhasil | Selesai |
+| Migration database | Berhasil | Selesai |
+| Seed admin | Berhasil | Selesai |
+| Admin di database | Ada | Selesai |
+| Password admin | Tersimpan sebagai hash | Selesai |
+
 ## Kesimpulan Pengecekan Awal
 
 Backend dan frontend sudah bisa running sebagai project default awal.
 
-Namun testing fitur aplikasi ReKarya belum bisa dilakukan penuh karena fitur utama belum terlihat lengkap, seperti auth, schema database, seed admin, katalog produk, dashboard role, ReKarya Match, transaksi, pendampingan, ulasan, dan monitoring admin.
+Checkpoint 4 backend juga sudah lolos testing karena Prisma validate, Prisma generate, migration, seed admin, dan pengecekan admin di database berhasil.
 
 Status saat ini:
 
 | Checkpoint | Status Testing | Catatan |
 |---|---|---|
 | Checkpoint 1 Testing | Selesai | Struktur awal dan dokumen testing sudah dibuat |
-| Checkpoint 2 Backend | Sebagian besar sesuai setup awal | Backend bisa running, tetapi struktur folder final belum lengkap |
-| Checkpoint 3 Frontend | Sebagian besar sesuai setup awal | Frontend bisa running, tetapi masih default dan belum memakai src/app |
-| Checkpoint 4 Database | Belum bisa dites penuh | Perlu cek schema.prisma dan seed admin |
-| Checkpoint 5 Auth API | Belum bisa dites | Endpoint auth belum terlihat dari struktur |
-| Checkpoint 6 Landing dan Auth Pages | Belum bisa dites | Landing masih default, login/register belum terlihat |
+| Checkpoint 2 Backend | Selesai untuk setup awal | Backend bisa running |
+| Checkpoint 3 Frontend | Selesai untuk setup awal | Frontend bisa running |
+| Checkpoint 4 Database | PASS | Schema Prisma, migration, dan seed admin berhasil |
+| Checkpoint 5 Auth API | Belum dites | Menunggu endpoint auth dari backend |
+| Checkpoint 6 Landing dan Auth Pages | Belum dites | Menunggu landing, login, dan register dari frontend |
 
 ## Catatan
 

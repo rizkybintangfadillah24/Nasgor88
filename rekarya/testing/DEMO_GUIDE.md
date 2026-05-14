@@ -107,14 +107,14 @@ Tanggal pengecekan: 14 Mei 2026
 |---|---|---|
 | Backend | Bisa running default awal | Server backend bisa dijalankan, tetapi fitur belum lengkap |
 | Frontend | Bisa running default awal | Frontend Next.js bisa dijalankan, tetapi masih default awal |
-| Database | Belum siap demo | Perlu cek schema.prisma, migration, dan seed |
-| Seed admin | Belum siap demo | File seed admin belum terlihat |
-| Auth | Belum siap demo | Login/register belum bisa dites |
+| Database | Siap untuk tahap awal | Prisma validate, generate, dan migration berhasil |
+| Seed admin | Siap | Seed admin berhasil dan user admin ada di database |
+| Auth | Belum siap demo | Login/register belum bisa dites karena endpoint auth belum dicek |
 | Katalog | Belum siap demo | Halaman dan endpoint belum terlihat |
 | ReKarya Match | Belum siap demo | Endpoint dan halaman belum terlihat |
 | Dashboard role | Belum siap demo | Mahasiswa, UMKM, Admin belum terlihat |
 
-Kesimpulan: backend dan frontend sudah bisa running sebagai setup awal. Namun demo final belum bisa dijalankan sampai auth, database, produk, admin verification, ReKarya Match, dan dashboard role selesai.
+Kesimpulan: backend, frontend, database, dan seed admin sudah siap untuk tahap awal. Namun demo final belum bisa dijalankan penuh sampai auth, produk, admin verification, ReKarya Match, dan dashboard role selesai.
 
 ## Catatan Demo
 
