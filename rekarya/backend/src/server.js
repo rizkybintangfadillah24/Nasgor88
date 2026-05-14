@@ -6,6 +6,8 @@ const path = require("path");
 const authRoutes = require("./routes/authRoutes");
 const mahasiswaProfileRoutes = require("./routes/mahasiswaProfileRoutes");
 const umkmProfileRoutes = require("./routes/umkmProfileRoutes");
+const productRoutes = require("./routes/productRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 dotenv.config();
 
@@ -43,6 +45,8 @@ app.get("/api/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/mahasiswa", mahasiswaProfileRoutes);
 app.use("/api/umkm", umkmProfileRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.use((err, req, res, next) => {
   if (err) {

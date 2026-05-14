@@ -20,6 +20,10 @@ const storage = multer.diskStorage({
       uploadPath = path.join(__dirname, "../uploads/documents");
     }
 
+    if (file.fieldname === "screenshot") {
+      uploadPath = path.join(__dirname, "../uploads/products");
+    }
+
     ensureDirectoryExists(uploadPath);
     cb(null, uploadPath);
   },
@@ -53,6 +57,14 @@ const fileFilter = (req, file, cb) => {
     return cb(new Error("Dokumen hanya boleh JPG, JPEG, PNG, atau PDF"), false);
   }
 
+  if (file.fieldname === "screenshot") {
+    if (allowedImageTypes.includes(file.mimetype)) {
+      return cb(null, true);
+    }
+
+    return cb(new Error("Screenshot produk hanya boleh JPG, JPEG, atau PNG"), false);
+  }
+
   return cb(new Error("Field file tidak valid"), false);
 };
 
@@ -64,6 +76,15 @@ const uploadProfile = multer({
   },
 });
 
+const uploadProduct = multer({
+  storage,
+  fileFilter,
+  limits: {
+    fileSize: 2 * 1024 * 1024,
+  },
+});
+
 module.exports = {
   uploadProfile,
+  uploadProduct,
 };
