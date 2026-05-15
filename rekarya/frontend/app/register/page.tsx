@@ -141,7 +141,7 @@ export default function RegisterPage() {
                   type="email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
-                  placeholder="maulana@gmail.com"
+                  placeholder="mahasiswa@gmail.com"
                   className="mt-2 w-full rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-sm outline-none transition placeholder:text-slate-500 focus:border-emerald-400"
                   required
                 />
