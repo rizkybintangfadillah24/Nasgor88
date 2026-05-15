@@ -2,8 +2,16 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { removeToken } from "../../lib/api";
+
+type SidebarUser = {
+  id?: number;
+  username?: string;
+  email?: string;
+  role?: string;
+  verificationStatus?: string;
+};
 
 const menus = [
   {
@@ -36,11 +44,39 @@ export default function MahasiswaLayout({
   const pathname = usePathname();
   const router = useRouter();
 
+  const [user, setUser] = useState<SidebarUser | null>(null);
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("rekarya_user");
+
+    if (!savedUser) {
+      setUser(null);
+      return;
+    }
+
+    try {
+      const parsedUser = JSON.parse(savedUser);
+      setUser(parsedUser);
+    } catch {
+      setUser(null);
+    }
+  }, []);
+
   const handleLogout = () => {
     removeToken();
     localStorage.removeItem("rekarya_user");
     router.push("/login");
   };
+
+  const displayName =
+    user?.username && user.username.trim() !== ""
+      ? user.username
+      : "Mahasiswa";
+
+  const displayEmail =
+    user?.email && user.email.trim() !== ""
+      ? user.email
+      : "Email belum tersedia";
 
   return (
     <main
@@ -151,18 +187,22 @@ export default function MahasiswaLayout({
                 fontSize: "14px",
                 fontWeight: 800,
                 color: "#ffffff",
+                wordBreak: "break-word",
               }}
             >
-              Mahasiswa Demo
+              {displayName}
             </p>
+
             <p
               style={{
                 marginTop: "4px",
                 fontSize: "12px",
                 color: "#94a3b8",
+                wordBreak: "break-word",
+                lineHeight: 1.5,
               }}
             >
-              mahasiswa@rekarya.com
+              {displayEmail}
             </p>
           </div>
 

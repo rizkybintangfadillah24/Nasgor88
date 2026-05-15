@@ -5,19 +5,55 @@ const products = [
     title: "Aplikasi Web Kasir UMKM",
     category: "Keuangan",
     description:
-      "Membantu UMKM mencatat transaksi, stok, dan laporan penjualan secara sederhana.",
+      "Membantu UMKM mencatat transaksi, mengelola stok, dan melihat laporan penjualan secara lebih rapi.",
   },
   {
     title: "Katalog Digital Produk Lokal",
     category: "Pemasaran",
     description:
-      "Membantu usaha kecil menampilkan produk secara online agar mudah ditemukan pelanggan.",
+      "Membantu usaha kecil menampilkan produk secara online agar lebih mudah ditemukan oleh pelanggan.",
   },
   {
     title: "Sistem Pemesanan Online",
     category: "Penjualan",
     description:
-      "Membantu UMKM menerima pesanan digital dan mengelola order dengan lebih rapi.",
+      "Membantu UMKM menerima pesanan digital, mengelola order, dan mempercepat proses pelayanan.",
+  },
+  {
+    title: "Dashboard Analisis Penjualan",
+    category: "Analisis Data",
+    description:
+      "Membantu pemilik usaha melihat tren penjualan, produk terlaris, dan performa usaha melalui tampilan dashboard sederhana.",
+  },
+  {
+    title: "Aplikasi Manajemen Stok",
+    category: "Operasional",
+    description:
+      "Membantu UMKM memantau stok barang, mencatat barang masuk dan keluar, serta mengurangi risiko stok habis tanpa terpantau.",
+  },
+  {
+    title: "Sistem Pencatatan Keuangan UMKM",
+    category: "Keuangan",
+    description:
+      "Membantu pelaku usaha mencatat pemasukan, pengeluaran, laba, dan laporan keuangan harian secara lebih terstruktur.",
+  },
+  {
+    title: "Website Company Profile UMKM",
+    category: "Pemasaran",
+    description:
+      "Membantu UMKM menampilkan profil usaha, produk unggulan, kontak, lokasi, dan informasi bisnis secara profesional.",
+  },
+  {
+    title: "Aplikasi Reservasi Jasa Online",
+    category: "Jasa",
+    description:
+      "Membantu usaha jasa menerima pemesanan jadwal, mencatat pelanggan, dan mengelola layanan secara digital.",
+  },
+  {
+    title: "Sistem Monitoring Produksi",
+    category: "Operasional",
+    description:
+      "Membantu UMKM memantau proses produksi, status pengerjaan, dan catatan kendala agar operasional lebih terkontrol.",
   },
 ];
 
@@ -33,19 +69,36 @@ const problems = [
 const flows = [
   {
     title: "Mahasiswa Upload",
-    description: "Mahasiswa mengunggah produk tugas akhir ke platform.",
+    description:
+      "Mahasiswa mengunggah produk tugas akhir yang memiliki potensi menjadi solusi digital untuk UMKM.",
   },
   {
     title: "Admin Verifikasi",
-    description: "Admin memeriksa dan menyetujui produk yang layak tampil.",
+    description:
+      "Admin memeriksa kelayakan produk agar katalog tetap terkurasi, relevan, dan terpercaya.",
   },
   {
     title: "UMKM Cari Solusi",
-    description: "UMKM mencari solusi digital sesuai kebutuhan usaha.",
+    description:
+      "UMKM menemukan solusi berdasarkan masalah usaha, kebutuhan digital, budget, dan metode pendampingan.",
   },
   {
     title: "Kerja Sama",
-    description: "UMKM dan mahasiswa melanjutkan proses implementasi.",
+    description:
+      "UMKM dan mahasiswa melanjutkan proses demo, penawaran, transaksi, implementasi, dan pendampingan.",
+  },
+];
+
+const benefits = [
+  {
+    title: "Untuk Mahasiswa",
+    description:
+      "Produk tugas akhir tidak berhenti sebagai proyek akademik, tetapi memiliki peluang digunakan langsung oleh pelaku usaha.",
+  },
+  {
+    title: "Untuk UMKM",
+    description:
+      "UMKM mendapat akses solusi digital yang lebih terarah, relevan, dan sesuai dengan kebutuhan operasional usaha.",
   },
 ];
 
@@ -59,19 +112,19 @@ export default function HomePage() {
           </Link>
 
           <div className="hidden items-center gap-7 text-sm text-slate-300 md:flex">
-            <a href="#home" className="hover:text-emerald-300">
+            <a href="#home" className="transition hover:text-emerald-300">
               Home
             </a>
-            <a href="#produk" className="hover:text-emerald-300">
+            <a href="#produk" className="transition hover:text-emerald-300">
               Produk
             </a>
-            <a href="#trend" className="hover:text-emerald-300">
+            <a href="#trend" className="transition hover:text-emerald-300">
               Trend UMKM
             </a>
-            <a href="#alur" className="hover:text-emerald-300">
+            <a href="#alur" className="transition hover:text-emerald-300">
               Alur
             </a>
-            <a href="#manfaat" className="hover:text-emerald-300">
+            <a href="#manfaat" className="transition hover:text-emerald-300">
               Manfaat
             </a>
           </div>
@@ -83,6 +136,7 @@ export default function HomePage() {
             >
               Register
             </Link>
+
             <Link
               href="/login"
               className="rounded-full bg-emerald-400 px-5 py-2 text-sm font-bold text-slate-950 transition hover:bg-emerald-300"
@@ -115,11 +169,57 @@ export default function HomePage() {
               Digital UMKM.
             </p>
 
-            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-400">
-              Platform yang membantu UMKM menemukan solusi digital dari produk
-              tugas akhir mahasiswa melalui katalog terverifikasi dan sistem
-              rekomendasi ReKarya Match.
-            </p>
+            <div
+              className="mt-6 max-w-3xl space-y-4 text-base leading-8 text-slate-400"
+              style={{
+                textAlign: "justify",
+                textJustify: "inter-word",
+              }}
+            >
+              <p
+                style={{
+                  textAlign: "justify",
+                  textJustify: "inter-word",
+                  textAlignLast: "left",
+                }}
+              >
+                ReKarya adalah platform digital yang dirancang untuk
+                menjembatani karya inovatif mahasiswa dengan kebutuhan nyata
+                pelaku UMKM. Melalui ReKarya, produk tugas akhir mahasiswa
+                tidak berhenti sebagai dokumen akademik atau proyek kampus
+                semata, tetapi memiliki peluang untuk digunakan, diuji, dan
+                diterapkan langsung dalam dunia usaha.
+              </p>
+
+              <p
+                style={{
+                  textAlign: "justify",
+                  textJustify: "inter-word",
+                  textAlignLast: "left",
+                }}
+              >
+                Platform ini membantu mahasiswa memperkenalkan solusi digital
+                yang mereka bangun, mulai dari aplikasi penjualan, sistem
+                pencatatan keuangan, katalog digital, manajemen stok, dashboard
+                analisis, hingga berbagai teknologi lain yang dapat mendukung
+                transformasi UMKM.
+              </p>
+
+              <p
+                style={{
+                  textAlign: "justify",
+                  textJustify: "inter-word",
+                  textAlignLast: "left",
+                }}
+              >
+                Bagi UMKM, ReKarya hadir sebagai ruang pencarian solusi yang
+                lebih terarah. Pelaku usaha dapat menemukan produk digital yang
+                sesuai dengan masalah utama mereka, seperti penjualan yang belum
+                online, pencatatan keuangan manual, stok barang yang belum
+                tertata, pemasaran digital yang belum optimal, hingga kebutuhan
+                analisis usaha berbasis data.
+              </p>
+            </div>
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
@@ -128,6 +228,7 @@ export default function HomePage() {
               >
                 Login Mahasiswa
               </Link>
+
               <Link
                 href="/register"
                 className="rounded-full border border-white/15 px-7 py-3 text-center font-bold text-white transition hover:border-emerald-400/60 hover:bg-white/10"
@@ -138,41 +239,56 @@ export default function HomePage() {
           </div>
 
           <div className="rounded-[2rem] border border-white/10 bg-white/5 p-4 shadow-2xl shadow-emerald-950/30">
-            <div className="rounded-[1.5rem] bg-slate-950/80 p-6">
-              <div className="mb-6 flex items-start justify-between gap-4">
+            <div className="rounded-[1.5rem] bg-[#080D1F] p-6 md:p-8">
+              <div className="flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-sm text-slate-400">ReKarya Match</p>
-                  <h2 className="mt-1 text-2xl font-black">
-                    Rekomendasi Solusi
+                  <p className="text-sm font-semibold text-emerald-300">
+                    Alur Kolaborasi
+                  </p>
+
+                  <h2 className="mt-2 text-3xl font-black">
+                    Dari karya kampus menjadi solusi usaha.
                   </h2>
                 </div>
-                <span className="rounded-full bg-emerald-400 px-4 py-2 text-sm font-black text-slate-950">
-                  86%
-                </span>
+
+                <div className="hidden rounded-full bg-emerald-400 px-4 py-2 text-sm font-black text-slate-950 md:block">
+                  ReKarya
+                </div>
               </div>
 
-              <div className="space-y-4">
+              <div className="mt-8 space-y-4">
                 {[
-                  "Sesuai dengan masalah utama usaha",
-                  "Fitur kasir dan laporan penjualan cocok",
-                  "Harga sesuai dengan budget UMKM",
-                  "Pendampingan tersedia secara online",
-                ].map((item) => (
+                  "Mahasiswa mengunggah produk tugas akhir",
+                  "Admin memverifikasi kelayakan produk",
+                  "UMKM mencari solusi sesuai masalah usaha",
+                  "Sistem membantu menampilkan produk yang relevan",
+                  "Kolaborasi berlanjut ke demo, kerja sama, dan pendampingan",
+                ].map((item, index) => (
                   <div
                     key={item}
-                    className="rounded-2xl border border-white/10 bg-white/[0.05] p-4 text-sm text-slate-300"
+                    className="rounded-2xl border border-white/10 bg-white/[0.04] p-4"
                   >
-                    {item}
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-sm font-black text-slate-950">
+                        {index + 1}
+                      </div>
+
+                      <p className="pt-1 text-sm font-semibold leading-6 text-slate-200">
+                        {item}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-6 rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-4">
-                <p className="text-sm font-semibold text-emerald-200">
-                  Label Kecocokan
+              <div className="mt-6 rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-5">
+                <p className="text-sm font-black uppercase tracking-[0.18em] text-emerald-300">
+                  Fokus Platform
                 </p>
-                <p className="mt-1 text-xl font-black text-white">
-                  Sangat Cocok
+
+                <p className="mt-3 text-lg font-black text-white">
+                  Katalog produk terverifikasi, pencarian solusi UMKM, dan
+                  kolaborasi implementasi.
                 </p>
               </div>
             </div>
@@ -180,86 +296,147 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="tentang" className="px-6 py-20">
-        <div className="mx-auto max-w-7xl rounded-[2rem] border border-white/10 bg-white/[0.04] p-8 md:p-12">
-          <p className="text-sm font-bold uppercase tracking-[0.25em] text-emerald-300">
-            Deskripsi Platform
-          </p>
-          <h2 className="mt-4 max-w-3xl text-3xl font-black md:text-5xl">
-            Satu platform untuk mempertemukan karya mahasiswa dan kebutuhan
-            digital UMKM.
-          </h2>
-          <p className="mt-6 max-w-4xl text-base leading-8 text-slate-400">
-            ReKarya mempertemukan produk tugas akhir mahasiswa dengan kebutuhan
-            digital UMKM. Mahasiswa dapat mengunggah produk tugas akhir, UMKM
-            dapat mencari solusi berdasarkan kebutuhan usaha, dan admin
-            memverifikasi produk agar katalog tetap terkurasi.
-          </p>
+      <section
+        id="deskripsi"
+        className="border-y border-white/10 bg-white/[0.03] px-6 py-20"
+      >
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-4xl">
+            <p className="text-sm font-black uppercase tracking-[0.25em] text-emerald-300">
+              Deskripsi Platform
+            </p>
+
+            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">
+              Ruang temu antara inovasi mahasiswa dan kebutuhan digital UMKM.
+            </h2>
+          </div>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            <div className="rounded-[1.5rem] border border-white/10 bg-[#0B1022] p-6">
+              <h3 className="text-xl font-black text-white">
+                Karya mahasiswa lebih berdampak
+              </h3>
+
+              <p className="mt-4 text-sm leading-7 text-slate-400">
+                Mahasiswa dapat mengunggah produk tugas akhir yang berpotensi
+                membantu proses digitalisasi UMKM. Produk yang masuk ke katalog
+                menjadi bukti bahwa karya akademik dapat memiliki nilai guna
+                secara nyata.
+              </p>
+            </div>
+
+            <div className="rounded-[1.5rem] border border-white/10 bg-[#0B1022] p-6">
+              <h3 className="text-xl font-black text-white">
+                UMKM menemukan solusi lebih tepat
+              </h3>
+
+              <p className="mt-4 text-sm leading-7 text-slate-400">
+                UMKM dapat mencari produk berdasarkan masalah usaha, kategori
+                kebutuhan, fitur, biaya, durasi pelatihan, dan metode
+                pendampingan yang sesuai dengan kondisi usaha mereka.
+              </p>
+            </div>
+
+            <div className="rounded-[1.5rem] border border-white/10 bg-[#0B1022] p-6">
+              <h3 className="text-xl font-black text-white">
+                Admin menjaga kualitas katalog
+              </h3>
+
+              <p className="mt-4 text-sm leading-7 text-slate-400">
+                Setiap produk yang diunggah akan melalui proses verifikasi
+                sehingga katalog ReKarya tetap terkurasi, kredibel, dan layak
+                digunakan sebagai referensi solusi digital bagi UMKM.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
       <section id="produk" className="px-6 py-20">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
-              <p className="text-sm font-bold uppercase tracking-[0.25em] text-emerald-300">
+              <p className="text-sm font-black uppercase tracking-[0.25em] text-emerald-300">
                 Produk Mahasiswa
               </p>
-              <h2 className="mt-3 text-3xl font-black md:text-5xl">
-                Produk Tugas Akhir Terkurasi
+
+              <h2 className="mt-4 text-4xl font-black tracking-tight">
+                Contoh produk tugas akhir.
               </h2>
-              <p className="mt-4 max-w-2xl text-slate-400">
-                Produk yang tampil adalah contoh tampilan katalog. Nantinya
-                produk asli akan diambil dari backend dan hanya status approved
-                yang muncul.
+
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-400">
+                Produk yang tampil pada katalog utama adalah produk yang sudah
+                diverifikasi oleh admin dan layak dilihat oleh UMKM.
               </p>
             </div>
+
+            <Link
+              href="/register"
+              className="w-fit rounded-full border border-white/15 px-5 py-3 text-sm font-bold text-white transition hover:border-emerald-400/60 hover:bg-white/10"
+            >
+              Lihat Katalog
+            </Link>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
             {products.map((product) => (
-              <article
+              <div
                 key={product.title}
-                className="group rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-6 transition hover:-translate-y-1 hover:border-emerald-400/40 hover:bg-white/[0.07]"
+                className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-6 transition hover:border-emerald-400/40 hover:bg-white/[0.06]"
               >
-                <span className="rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-bold text-emerald-300">
+                <div className="mb-5 inline-flex rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-bold text-emerald-300">
                   {product.category}
-                </span>
-                <h3 className="mt-5 text-xl font-black">{product.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-400">
+                </div>
+
+                <h3 className="text-xl font-black text-white">
+                  {product.title}
+                </h3>
+
+                <p className="mt-4 text-sm leading-7 text-slate-400">
                   {product.description}
                 </p>
+
                 <Link
                   href="/register"
-                  className="mt-6 inline-flex rounded-full border border-white/15 px-5 py-2 text-sm font-bold transition hover:border-emerald-400/60 hover:bg-white/10"
+                  className="mt-6 inline-flex rounded-full bg-emerald-400 px-5 py-2 text-sm font-bold text-slate-950 transition hover:bg-emerald-300"
                 >
-                  Detail
+                  Detail Produk
                 </Link>
-              </article>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="trend" className="bg-white px-6 py-20 text-slate-950">
+      <section
+        id="trend"
+        className="border-y border-white/10 bg-white/[0.03] px-6 py-20"
+      >
         <div className="mx-auto max-w-7xl">
-          <p className="text-sm font-bold uppercase tracking-[0.25em] text-emerald-700">
-            Trend UMKM
+          <p className="text-sm font-black uppercase tracking-[0.25em] text-emerald-300">
+            Tren Masalah UMKM
           </p>
-          <h2 className="mt-3 max-w-3xl text-3xl font-black md:text-5xl">
-            Masalah digital yang sering dihadapi UMKM.
+
+          <h2 className="mt-4 text-4xl font-black tracking-tight">
+            Masalah digital yang paling sering membutuhkan solusi.
           </h2>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-400">
+            Kategori masalah ini menjadi acuan awal agar produk mahasiswa dapat
+            diarahkan ke kebutuhan UMKM yang lebih spesifik dan mudah dipahami.
+          </p>
+
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {problems.map((problem, index) => (
               <div
                 key={problem}
-                className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm"
+                className="flex items-center justify-between rounded-2xl border border-white/10 bg-[#0B1022] p-5"
               >
-                <p className="text-sm font-black text-emerald-700">
+                <p className="font-bold text-white">{problem}</p>
+
+                <span className="rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-black text-emerald-300">
                   #{index + 1}
-                </p>
-                <h3 className="mt-2 font-bold">{problem}</h3>
+                </span>
               </div>
             ))}
           </div>
@@ -268,24 +445,27 @@ export default function HomePage() {
 
       <section id="alur" className="px-6 py-20">
         <div className="mx-auto max-w-7xl">
-          <p className="text-sm font-bold uppercase tracking-[0.25em] text-emerald-300">
+          <p className="text-sm font-black uppercase tracking-[0.25em] text-emerald-300">
             Alur Penggunaan
           </p>
-          <h2 className="mt-3 max-w-3xl text-3xl font-black md:text-5xl">
-            Mahasiswa Upload → Admin Verifikasi → UMKM Cari → Kerja Sama
+
+          <h2 className="mt-4 text-4xl font-black tracking-tight">
+            Dari upload produk sampai kerja sama.
           </h2>
 
-          <div className="mt-10 grid gap-5 md:grid-cols-4">
+          <div className="mt-10 grid gap-6 md:grid-cols-4">
             {flows.map((flow, index) => (
               <div
                 key={flow.title}
-                className="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-6"
+                className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-6"
               >
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-400 font-black text-slate-950">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-400 text-lg font-black text-slate-950">
                   {index + 1}
                 </div>
-                <h3 className="font-black">{flow.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-400">
+
+                <h3 className="text-lg font-black text-white">{flow.title}</h3>
+
+                <p className="mt-4 text-sm leading-7 text-slate-400">
                   {flow.description}
                 </p>
               </div>
@@ -294,37 +474,53 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="manfaat" className="px-6 pb-24">
+      <section
+        id="manfaat"
+        className="border-y border-white/10 bg-white/[0.03] px-6 py-20"
+      >
         <div className="mx-auto max-w-7xl">
-          <p className="text-sm font-bold uppercase tracking-[0.25em] text-emerald-300">
+          <p className="text-sm font-black uppercase tracking-[0.25em] text-emerald-300">
             Manfaat
           </p>
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
-            <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-8">
-              <h3 className="text-2xl font-black">Untuk Mahasiswa</h3>
-              <p className="mt-4 leading-7 text-slate-400">
-                Produk tugas akhir bisa terimplementasi dan memiliki peluang
-                digunakan untuk menyelesaikan kebutuhan nyata pelaku UMKM.
-              </p>
-            </div>
 
-            <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-8">
-              <h3 className="text-2xl font-black">Untuk UMKM</h3>
-              <p className="mt-4 leading-7 text-slate-400">
-                UMKM mendapat solusi digital yang sesuai kebutuhan, lebih
-                terarah, dan sudah melalui proses verifikasi platform.
-              </p>
-            </div>
+          <h2 className="mt-4 text-4xl font-black tracking-tight">
+            Kolaborasi yang saling menguatkan.
+          </h2>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            {benefits.map((benefit) => (
+              <div
+                key={benefit.title}
+                className="rounded-[1.5rem] border border-white/10 bg-[#0B1022] p-7"
+              >
+                <h3 className="text-2xl font-black text-white">
+                  {benefit.title}
+                </h3>
+
+                <p className="mt-4 text-sm leading-7 text-slate-400">
+                  {benefit.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-white/10 px-6 py-8 text-sm text-slate-400">
-        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-4 md:flex-row md:items-center">
-          <p>© 2026 ReKarya. Platform kolaborasi mahasiswa dan UMKM.</p>
-          <div className="flex gap-5">
-            <span>Kontak</span>
-            <span>Info Platform</span>
+      <footer className="px-6 py-10">
+        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-4 border-t border-white/10 pt-8 md:flex-row md:items-center">
+          <div>
+            <Link href="/" className="text-2xl font-black tracking-tight">
+              Re<span className="text-emerald-400">Karya</span>
+            </Link>
+
+            <p className="mt-3 text-sm text-slate-500">
+              Platform penghubung produk tugas akhir mahasiswa dengan kebutuhan
+              digital UMKM.
+            </p>
+          </div>
+
+          <div className="text-sm text-slate-500">
+            © 2026 ReKarya. Web Application Hackathon Project.
           </div>
         </div>
       </footer>
