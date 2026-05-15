@@ -24,6 +24,15 @@ type ProfileFiles = {
   identityCard: File | null;
 };
 
+
+type AlertType = "success" | "error" | "warning" | "info";
+
+type AlertState = {
+  type: AlertType;
+  title: string;
+  message: string;
+};
+
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000/api";
 
@@ -105,15 +114,36 @@ export default function MahasiswaProfilePage() {
   const [isSavingPassword, setIsSavingPassword] = useState(false);
   const [profileMessage, setProfileMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
+  const [actionAlert, setActionAlert] = useState<AlertState | null>(null);
 
-  const showProfileMessage = (message: string) => {
-    setProfileMessage(message);
-    alert(message);
+  const showActionAlert = (
+    type: AlertType,
+    title: string,
+    message: string,
+  ) => {
+    setActionAlert({ type, title, message });
+
+    window.setTimeout(() => {
+      setActionAlert(null);
+    }, 3500);
   };
 
-  const showPasswordMessage = (message: string) => {
+  const showProfileMessage = (
+    message: string,
+    type: AlertType = "info",
+    title = "Informasi Profil",
+  ) => {
+    setProfileMessage(message);
+    showActionAlert(type, title, message);
+  };
+
+  const showPasswordMessage = (
+    message: string,
+    type: AlertType = "info",
+    title = "Informasi Akun",
+  ) => {
     setPasswordMessage(message);
-    alert(message);
+    showActionAlert(type, title, message);
   };
 
   const handleChange = (key: keyof ProfileForm, value: string) => {
@@ -189,7 +219,7 @@ export default function MahasiswaProfilePage() {
       const token = getAuthToken();
 
       if (!token) {
-        showProfileMessage("Token tidak ditemukan. Silakan login ulang.");
+        showProfileMessage("Token tidak ditemukan. Silakan login ulang.", "error", "Akses ditolak");
         return;
       }
 
@@ -227,14 +257,14 @@ export default function MahasiswaProfilePage() {
       const result = await response.json();
 
       if (!response.ok || !result.success) {
-        showProfileMessage(result.message || "Gagal menyimpan profil.");
+        showProfileMessage(result.message || "Gagal menyimpan profil.", "error", "Profil gagal disimpan");
         return;
       }
 
-      showProfileMessage("Profil berhasil diperbarui.");
+      showProfileMessage("Profil berhasil diperbarui.", "success", "Profil berhasil");
       await fetchProfile();
     } catch (error) {
-      showProfileMessage("Gagal terhubung ke backend saat menyimpan profil.");
+      showProfileMessage("Gagal terhubung ke backend saat menyimpan profil.", "error", "Koneksi gagal");
     } finally {
       setIsSavingProfile(false);
     }
@@ -248,17 +278,17 @@ export default function MahasiswaProfilePage() {
       const token = getAuthToken();
 
       if (!token) {
-        showPasswordMessage("Token tidak ditemukan. Silakan login ulang.");
+        showPasswordMessage("Token tidak ditemukan. Silakan login ulang.", "error", "Akses ditolak");
         return;
       }
 
       if (!form.passwordLama || !form.passwordBaru || !form.ulangiPasswordBaru) {
-        showPasswordMessage("Semua field password wajib diisi.");
+        showPasswordMessage("Semua field password wajib diisi.", "warning", "Data belum lengkap");
         return;
       }
 
       if (form.passwordBaru !== form.ulangiPasswordBaru) {
-        showPasswordMessage("Password baru dan konfirmasi password tidak sama.");
+        showPasswordMessage("Password baru dan konfirmasi password tidak sama.", "warning", "Konfirmasi tidak cocok");
         return;
       }
 
@@ -278,11 +308,11 @@ export default function MahasiswaProfilePage() {
       const result = await response.json();
 
       if (!response.ok || !result.success) {
-        showPasswordMessage(result.message || "Gagal mengubah password.");
+        showPasswordMessage(result.message || "Gagal mengubah password.", "error", "Password gagal diubah");
         return;
       }
 
-      showPasswordMessage("Password berhasil diubah.");
+      showPasswordMessage("Password berhasil diubah.", "success", "Password berhasil");
 
       setForm((prev) => ({
         ...prev,
@@ -291,7 +321,7 @@ export default function MahasiswaProfilePage() {
         ulangiPasswordBaru: "",
       }));
     } catch (error) {
-      showPasswordMessage("Gagal terhubung ke backend saat mengubah password.");
+      showPasswordMessage("Gagal terhubung ke backend saat mengubah password.", "error", "Koneksi gagal");
     } finally {
       setIsSavingPassword(false);
     }
@@ -303,6 +333,8 @@ export default function MahasiswaProfilePage() {
 
   return (
     <>
+      <ToastAlert alert={actionAlert} onClose={() => setActionAlert(null)} />
+
       <style jsx global>{`
         input::placeholder,
         textarea::placeholder {
@@ -928,6 +960,140 @@ function MessageBox({ message }: { message: string }) {
       }}
     >
       {message}
+    </div>
+  );
+}
+
+
+function ToastAlert({
+  alert,
+  onClose,
+}: {
+  alert: AlertState | null;
+  onClose: () => void;
+}) {
+  if (!alert) return null;
+
+  const styleMap: Record<
+    AlertType,
+    {
+      border: string;
+      background: string;
+      color: string;
+      icon: string;
+    }
+  > = {
+    success: {
+      border: "1px solid rgba(52,211,153,0.35)",
+      background:
+        "linear-gradient(135deg, rgba(6,78,59,0.98), rgba(16,185,129,0.22))",
+      color: "#6ee7b7",
+      icon: "✓",
+    },
+    error: {
+      border: "1px solid rgba(248,113,113,0.38)",
+      background:
+        "linear-gradient(135deg, rgba(127,29,29,0.98), rgba(239,68,68,0.20))",
+      color: "#fecaca",
+      icon: "!",
+    },
+    warning: {
+      border: "1px solid rgba(251,191,36,0.38)",
+      background:
+        "linear-gradient(135deg, rgba(113,63,18,0.98), rgba(251,191,36,0.20))",
+      color: "#fde68a",
+      icon: "!",
+    },
+    info: {
+      border: "1px solid rgba(96,165,250,0.38)",
+      background:
+        "linear-gradient(135deg, rgba(30,58,138,0.98), rgba(59,130,246,0.20))",
+      color: "#bfdbfe",
+      icon: "i",
+    },
+  };
+
+  const activeStyle = styleMap[alert.type];
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: "22px",
+        right: "22px",
+        width: "370px",
+        maxWidth: "calc(100vw - 32px)",
+        zIndex: 9999,
+        borderRadius: "18px",
+        border: activeStyle.border,
+        background: activeStyle.background,
+        boxShadow: "0 24px 70px rgba(0,0,0,0.45)",
+        padding: "16px",
+        color: "#ffffff",
+        backdropFilter: "blur(16px)",
+      }}
+    >
+      <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+        <div
+          style={{
+            width: "34px",
+            height: "34px",
+            borderRadius: "999px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(255,255,255,0.12)",
+            color: activeStyle.color,
+            fontSize: "18px",
+            fontWeight: 900,
+            flexShrink: 0,
+          }}
+        >
+          {activeStyle.icon}
+        </div>
+
+        <div style={{ flex: 1 }}>
+          <p
+            style={{
+              margin: 0,
+              fontSize: "15px",
+              fontWeight: 900,
+              color: activeStyle.color,
+            }}
+          >
+            {alert.title}
+          </p>
+
+          <p
+            style={{
+              margin: "6px 0 0",
+              fontSize: "13px",
+              lineHeight: 1.6,
+              color: "#e2e8f0",
+            }}
+          >
+            {alert.message}
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={onClose}
+          style={{
+            width: "28px",
+            height: "28px",
+            borderRadius: "999px",
+            border: "none",
+            background: "rgba(255,255,255,0.12)",
+            color: "#ffffff",
+            fontSize: "16px",
+            fontWeight: 900,
+            cursor: "pointer",
+          }}
+        >
+          ×
+        </button>
+      </div>
     </div>
   );
 }

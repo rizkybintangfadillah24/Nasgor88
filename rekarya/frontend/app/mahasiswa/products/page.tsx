@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ChangeEvent, CSSProperties } from "react";
 
 type ProductForm = {
@@ -15,6 +15,31 @@ type ProductForm = {
   trainingDuration: string;
   mentoringMethod: string;
   price: string;
+};
+
+type ProductItem = {
+  id: number | string;
+  title: string;
+  category: string;
+  description?: string;
+  mainProblem?: string;
+  problemDetail?: string;
+  targetBusiness?: string;
+  mainFeatures?: string;
+  featureDetail?: string;
+  technology?: string;
+  trainingDuration?: number | string;
+  mentoringMethod?: string;
+  price: number | string;
+  status: string;
+};
+
+type AlertType = "success" | "error" | "warning" | "info";
+
+type ToastState = {
+  type: AlertType;
+  title: string;
+  message: string;
 };
 
 const API_BASE_URL =
@@ -67,7 +92,27 @@ const textareaStyle: CSSProperties = {
 
 const selectStyle: CSSProperties = {
   ...inputStyle,
-  color: "#94a3b8",
+};
+
+const formatPrice = (price: number | string) => {
+  const numericPrice = Number(price);
+
+  if (Number.isNaN(numericPrice)) {
+    return String(price);
+  }
+
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    maximumFractionDigits: 0,
+  }).format(numericPrice);
+};
+
+const getStatusLabel = (status: string) => {
+  if (status === "APPROVED") return "Approved";
+  if (status === "REJECTED") return "Rejected";
+  if (status === "PENDING") return "Pending";
+  return status;
 };
 
 export default function MahasiswaProductsPage() {
@@ -89,10 +134,29 @@ export default function MahasiswaProductsPage() {
   const [isUploading, setIsUploading] = useState(false);
   const [message, setMessage] = useState("");
   const [fileInputKey, setFileInputKey] = useState(0);
+  const [products, setProducts] = useState<ProductItem[]>([]);
+  const [isLoadingProducts, setIsLoadingProducts] = useState(true);
+  const [actionAlert, setActionAlert] = useState<ToastState | null>(null);
 
-  const showMessage = (text: string) => {
+  const showToast = (
+    type: AlertType,
+    title: string,
+    toastMessage: string
+  ) => {
+    setActionAlert({ type, title, message: toastMessage });
+
+    window.setTimeout(() => {
+      setActionAlert(null);
+    }, 3500);
+  };
+
+  const showMessage = (
+    text: string,
+    type: AlertType = "info",
+    title = "Informasi Produk"
+  ) => {
     setMessage(text);
-    alert(text);
+    showToast(type, title, text);
   };
 
   const handleChange = (key: keyof ProductForm, value: string) => {
@@ -111,10 +175,11 @@ export default function MahasiswaProductsPage() {
     if (!form.title.trim()) return "Judul produk wajib diisi.";
     if (!form.category) return "Kategori produk wajib dipilih.";
     if (!form.problem) return "Masalah utama wajib dipilih.";
-    if (!form.targetUmkm.trim()) return "Target UMKM wajib diisi.";
+    if (!form.targetUmkm) return "Target UMKM wajib dipilih.";
     if (!form.mainFeature) return "Fitur utama wajib dipilih.";
     if (!form.technology) return "Teknologi wajib dipilih.";
-    if (!form.trainingDuration) return "Estimasi durasi pelatihan wajib dipilih.";
+    if (!form.trainingDuration)
+      return "Estimasi durasi pelatihan wajib dipilih.";
     if (!form.mentoringMethod) return "Metode pendampingan wajib dipilih.";
     if (!form.price.trim()) return "Harga wajib diisi.";
     if (!form.description.trim()) return "Deskripsi produk wajib diisi.";
@@ -148,6 +213,59 @@ export default function MahasiswaProductsPage() {
     setFileInputKey((prev) => prev + 1);
   };
 
+  const fetchMyProducts = async (showSuccessToast = false) => {
+    try {
+      setIsLoadingProducts(true);
+
+      const token = getAuthToken();
+
+      if (!token) {
+        showMessage(
+          "Token tidak ditemukan. Silakan login ulang.",
+          "error",
+          "Akses ditolak"
+        );
+        return;
+      }
+
+      const response = await fetch(`${API_BASE_URL}/products/my`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        showMessage(
+          result.message || "Gagal mengambil data produk.",
+          "error",
+          "Gagal memuat produk"
+        );
+        return;
+      }
+
+      setProducts(result.data || []);
+
+      if (showSuccessToast) {
+        showMessage(
+          "Data produk berhasil diperbarui.",
+          "success",
+          "Produk diperbarui"
+        );
+      }
+    } catch (error) {
+      showMessage(
+        "Gagal terhubung ke backend saat mengambil produk.",
+        "error",
+        "Koneksi gagal"
+      );
+    } finally {
+      setIsLoadingProducts(false);
+    }
+  };
+
   const handleUploadProduct = async () => {
     try {
       setIsUploading(true);
@@ -156,14 +274,18 @@ export default function MahasiswaProductsPage() {
       const validationMessage = validateProductForm();
 
       if (validationMessage) {
-        showMessage(validationMessage);
+        showMessage(validationMessage, "warning", "Data belum lengkap");
         return;
       }
 
       const token = getAuthToken();
 
       if (!token) {
-        showMessage("Token tidak ditemukan. Silakan login ulang.");
+        showMessage(
+          "Token tidak ditemukan. Silakan login ulang.",
+          "error",
+          "Akses ditolak"
+        );
         return;
       }
 
@@ -199,24 +321,89 @@ export default function MahasiswaProductsPage() {
       const result = await response.json();
 
       if (!response.ok || !result.success) {
-        showMessage(result.message || "Gagal upload produk.");
+        showMessage(
+          result.message || "Gagal upload produk.",
+          "error",
+          "Upload gagal"
+        );
         return;
       }
 
       showMessage(
-        result.message || "Produk berhasil diupload dan menunggu verifikasi admin."
+        result.message ||
+          "Produk berhasil diupload dan menunggu verifikasi admin.",
+        "success",
+        "Upload berhasil"
       );
 
       resetForm();
+      await fetchMyProducts(false);
     } catch (error) {
-      showMessage("Gagal terhubung ke backend saat upload produk.");
+      showMessage(
+        "Gagal terhubung ke backend saat upload produk.",
+        "error",
+        "Koneksi gagal"
+      );
     } finally {
       setIsUploading(false);
     }
   };
 
+  const handleDeleteProduct = async (productId: number | string) => {
+    const confirmDelete = confirm("Yakin ingin menghapus produk ini?");
+
+    if (!confirmDelete) return;
+
+    try {
+      const token = getAuthToken();
+
+      if (!token) {
+        showMessage(
+          "Token tidak ditemukan. Silakan login ulang.",
+          "error",
+          "Akses ditolak"
+        );
+        return;
+      }
+
+      const response = await fetch(`${API_BASE_URL}/products/${productId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        showMessage(
+          result.message || "Gagal menghapus produk.",
+          "error",
+          "Hapus gagal"
+        );
+        return;
+      }
+
+      showMessage("Produk berhasil dihapus.", "success", "Produk dihapus");
+      await fetchMyProducts(false);
+    } catch (error) {
+      showMessage(
+        "Gagal terhubung ke backend saat menghapus produk.",
+        "error",
+        "Koneksi gagal"
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchMyProducts(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
+      <ToastAlert alert={actionAlert} onClose={() => setActionAlert(null)} />
+
       <style jsx global>{`
         input::placeholder,
         textarea::placeholder {
@@ -364,11 +551,19 @@ export default function MahasiswaProductsPage() {
               ]}
             />
 
-            <InputField
+            <SelectField
               label="Target UMKM"
-              placeholder="Contoh: kuliner, retail toko, jasa, fashion, pertanian"
               value={form.targetUmkm}
               onChange={(val) => handleChange("targetUmkm", val)}
+              options={[
+                "Pilih target UMKM",
+                "Kuliner",
+                "Retail Toko",
+                "Jasa",
+                "Fashion",
+                "Pertanian",
+                "UMKM",
+              ]}
             />
 
             <SelectField
@@ -402,7 +597,12 @@ export default function MahasiswaProductsPage() {
               label="Estimasi Durasi Pelatihan"
               value={form.trainingDuration}
               onChange={(val) => handleChange("trainingDuration", val)}
-              options={["Pilih durasi pelatihan", "7 Hari", "10 Hari", "14 Hari"]}
+              options={[
+                "Pilih durasi pelatihan",
+                "7 Hari",
+                "10 Hari",
+                "14 Hari",
+              ]}
             />
 
             <SelectField
@@ -493,10 +693,37 @@ export default function MahasiswaProductsPage() {
             padding: "26px",
           }}
         >
-          <SectionHeading
-            title="Kelola Produk"
-            subtitle="Lihat, edit, hapus, dan cek status produk yang sudah diunggah."
-          />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+              gap: "16px",
+            }}
+          >
+            <SectionHeading
+              title="Kelola Produk"
+              subtitle="Lihat, hapus, dan cek status produk yang sudah diunggah."
+            />
+
+            <button
+              type="button"
+              onClick={() => fetchMyProducts(true)}
+              style={{
+                padding: "12px 16px",
+                borderRadius: "14px",
+                border: "1px solid rgba(52,211,153,0.24)",
+                background: "rgba(16,185,129,0.10)",
+                color: "#6ee7b7",
+                fontSize: "13px",
+                fontWeight: 900,
+                cursor: "pointer",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Refresh Produk
+            </button>
+          </div>
 
           <div
             style={{
@@ -510,7 +737,7 @@ export default function MahasiswaProductsPage() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr 0.8fr",
+                gridTemplateColumns: "1.4fr 1fr 1fr 0.8fr",
                 gap: "14px",
                 paddingBottom: "14px",
                 borderBottom: "1px solid rgba(255,255,255,0.08)",
@@ -522,47 +749,126 @@ export default function MahasiswaProductsPage() {
               <TableHead text="Aksi" />
             </div>
 
-            <div
-              style={{
-                padding: "28px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontSize: "16px",
-                  fontWeight: 900,
-                  color: "#ffffff",
-                }}
-              >
-                Belum ada produk yang diunggah.
-              </p>
-
-              <p
-                style={{
-                  marginTop: "8px",
-                  fontSize: "14px",
-                  lineHeight: 1.7,
-                  color: "#94a3b8",
-                }}
-              >
-                Produk yang berhasil diunggah akan tampil di sini beserta status
-                pending atau approved dari admin.
-              </p>
-
+            {isLoadingProducts ? (
+              <EmptyState
+                title="Mengambil data produk..."
+                description="Mohon tunggu, sistem sedang mengambil produk milik mahasiswa dari backend."
+              />
+            ) : products.length === 0 ? (
+              <EmptyState
+                title="Belum ada produk yang diunggah."
+                description="Produk yang berhasil diunggah akan tampil di sini beserta status pending atau approved dari admin."
+              />
+            ) : (
               <div
                 style={{
-                  marginTop: "18px",
-                  display: "inline-flex",
-                  gap: "10px",
-                  flexWrap: "wrap",
-                  justifyContent: "center",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
-                <StatusBadge text="Pending" />
-                <StatusBadge text="Approved" active />
+                {products.map((product) => (
+                  <div
+                    key={product.id}
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "1.4fr 1fr 1fr 0.8fr",
+                      gap: "14px",
+                      alignItems: "center",
+                      padding: "16px 0",
+                      borderBottom: "1px solid rgba(255,255,255,0.06)",
+                    }}
+                  >
+                    <div>
+                      <p
+                        style={{
+                          fontSize: "14px",
+                          fontWeight: 900,
+                          color: "#ffffff",
+                        }}
+                      >
+                        {product.title}
+                      </p>
+
+                      <p
+                        style={{
+                          marginTop: "5px",
+                          fontSize: "12px",
+                          color: "#94a3b8",
+                        }}
+                      >
+                        {formatPrice(product.price)}
+                      </p>
+                    </div>
+
+                    <p
+                      style={{
+                        fontSize: "13px",
+                        color: "#cbd5e1",
+                        fontWeight: 800,
+                      }}
+                    >
+                      {product.category}
+                    </p>
+
+                    <StatusBadge
+                      text={getStatusLabel(product.status)}
+                      active={product.status === "APPROVED"}
+                      rejected={product.status === "REJECTED"}
+                    />
+
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "8px",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      <button
+                        type="button"
+                        onClick={() =>
+                          showMessage(
+                            `Status produk "${product.title}" adalah ${getStatusLabel(
+                              product.status
+                            )}.`,
+                            "info",
+                            "Status produk"
+                          )
+                        }
+                        style={{
+                          padding: "8px 10px",
+                          borderRadius: "10px",
+                          border: "1px solid rgba(255,255,255,0.12)",
+                          background: "rgba(255,255,255,0.04)",
+                          color: "#cbd5e1",
+                          fontSize: "12px",
+                          fontWeight: 800,
+                          cursor: "pointer",
+                        }}
+                      >
+                        Status
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteProduct(product.id)}
+                        style={{
+                          padding: "8px 10px",
+                          borderRadius: "10px",
+                          border: "1px solid rgba(248,113,113,0.28)",
+                          background: "rgba(239,68,68,0.10)",
+                          color: "#fecaca",
+                          fontSize: "12px",
+                          fontWeight: 800,
+                          cursor: "pointer",
+                        }}
+                      >
+                        Hapus
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
+            )}
           </div>
         </section>
       </div>
@@ -649,7 +955,10 @@ function SelectField({
     <div>
       <label style={labelStyle}>{label}</label>
       <select
-        style={selectStyle}
+        style={{
+          ...selectStyle,
+          color: value ? "#ffffff" : "#94a3b8",
+        }}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       >
@@ -829,24 +1138,37 @@ function FormatBadge({ text }: { text: string }) {
 function StatusBadge({
   text,
   active = false,
+  rejected = false,
 }: {
   text: string;
   active?: boolean;
+  rejected?: boolean;
 }) {
+  const border = rejected
+    ? "1px solid rgba(248,113,113,0.28)"
+    : active
+    ? "1px solid rgba(52,211,153,0.28)"
+    : "1px solid rgba(251,191,36,0.28)";
+
+  const background = rejected
+    ? "rgba(239,68,68,0.10)"
+    : active
+    ? "rgba(16,185,129,0.12)"
+    : "rgba(251,191,36,0.10)";
+
+  const color = rejected ? "#fecaca" : active ? "#6ee7b7" : "#fbbf24";
+
   return (
     <span
       style={{
+        width: "fit-content",
         borderRadius: "999px",
-        border: active
-          ? "1px solid rgba(52,211,153,0.28)"
-          : "1px solid rgba(251,191,36,0.28)",
-        background: active
-          ? "rgba(16,185,129,0.12)"
-          : "rgba(251,191,36,0.10)",
+        border,
+        background,
         padding: "7px 12px",
         fontSize: "12px",
         fontWeight: 900,
-        color: active ? "#6ee7b7" : "#fbbf24",
+        color,
       }}
     >
       {text}
@@ -870,11 +1192,64 @@ function TableHead({ text }: { text: string }) {
   );
 }
 
+function EmptyState({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
+  return (
+    <div
+      style={{
+        padding: "28px",
+        textAlign: "center",
+      }}
+    >
+      <p
+        style={{
+          fontSize: "16px",
+          fontWeight: 900,
+          color: "#ffffff",
+        }}
+      >
+        {title}
+      </p>
+
+      <p
+        style={{
+          marginTop: "8px",
+          fontSize: "14px",
+          lineHeight: 1.7,
+          color: "#94a3b8",
+        }}
+      >
+        {description}
+      </p>
+
+      <div
+        style={{
+          marginTop: "18px",
+          display: "inline-flex",
+          gap: "10px",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
+        <StatusBadge text="Pending" />
+        <StatusBadge text="Approved" active />
+      </div>
+    </div>
+  );
+}
+
 function MessageBox({ message }: { message: string }) {
   const isSuccess =
     message.toLowerCase().includes("berhasil") ||
     message.toLowerCase().includes("diupload") ||
-    message.toLowerCase().includes("menunggu verifikasi");
+    message.toLowerCase().includes("menunggu verifikasi") ||
+    message.toLowerCase().includes("diperbarui") ||
+    message.toLowerCase().includes("dihapus");
 
   return (
     <div
@@ -893,6 +1268,147 @@ function MessageBox({ message }: { message: string }) {
       }}
     >
       {message}
+    </div>
+  );
+}
+
+function ToastAlert({
+  alert,
+  onClose,
+}: {
+  alert: ToastState | null;
+  onClose: () => void;
+}) {
+  if (!alert) return null;
+
+  const styleMap: Record<
+    AlertType,
+    {
+      border: string;
+      background: string;
+      titleColor: string;
+      icon: string;
+    }
+  > = {
+    success: {
+      border: "1px solid rgba(52,211,153,0.35)",
+      background:
+        "linear-gradient(135deg, rgba(6,78,59,0.98), rgba(16,185,129,0.20))",
+      titleColor: "#6ee7b7",
+      icon: "✓",
+    },
+    error: {
+      border: "1px solid rgba(248,113,113,0.35)",
+      background:
+        "linear-gradient(135deg, rgba(127,29,29,0.98), rgba(239,68,68,0.20))",
+      titleColor: "#fecaca",
+      icon: "!",
+    },
+    warning: {
+      border: "1px solid rgba(251,191,36,0.35)",
+      background:
+        "linear-gradient(135deg, rgba(113,63,18,0.98), rgba(251,191,36,0.20))",
+      titleColor: "#fde68a",
+      icon: "!",
+    },
+    info: {
+      border: "1px solid rgba(96,165,250,0.35)",
+      background:
+        "linear-gradient(135deg, rgba(30,58,138,0.98), rgba(59,130,246,0.20))",
+      titleColor: "#bfdbfe",
+      icon: "i",
+    },
+  };
+
+  const selected = styleMap[alert.type];
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: "24px",
+        right: "24px",
+        width: "370px",
+        maxWidth: "calc(100vw - 32px)",
+        zIndex: 9999,
+        borderRadius: "18px",
+        border: selected.border,
+        background: selected.background,
+        boxShadow: "0 24px 70px rgba(0,0,0,0.45)",
+        padding: "16px",
+        color: "#ffffff",
+        backdropFilter: "blur(16px)",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          gap: "12px",
+        }}
+      >
+        <div
+          style={{
+            width: "34px",
+            height: "34px",
+            borderRadius: "999px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(255,255,255,0.12)",
+            color: selected.titleColor,
+            fontSize: "18px",
+            fontWeight: 900,
+            flexShrink: 0,
+          }}
+        >
+          {selected.icon}
+        </div>
+
+        <div style={{ flex: 1 }}>
+          <h4
+            style={{
+              margin: 0,
+              fontSize: "15px",
+              fontWeight: 900,
+              color: selected.titleColor,
+            }}
+          >
+            {alert.title}
+          </h4>
+
+          <p
+            style={{
+              marginTop: "6px",
+              marginBottom: 0,
+              fontSize: "13px",
+              lineHeight: 1.6,
+              color: "#e2e8f0",
+            }}
+          >
+            {alert.message}
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={onClose}
+          style={{
+            border: "none",
+            background: "rgba(255,255,255,0.10)",
+            color: "#ffffff",
+            width: "28px",
+            height: "28px",
+            borderRadius: "999px",
+            cursor: "pointer",
+            fontSize: "16px",
+            fontWeight: 900,
+            lineHeight: 1,
+          }}
+        >
+          ×
+        </button>
+      </div>
     </div>
   );
 }
